@@ -1,0 +1,549 @@
+index.htm
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>माँ भगवती जागरण एवं रावण दहन - मकन्दीपुर | आय-व्यय विवरण</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts & Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rozha+One&family=Yantramanav:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    body {
+      font-family: 'Yantramanav', sans-serif;
+      background-color: #fffaf0;
+    }
+    .heading-font {
+      font-family: 'Rozha One', serif;
+    }
+    .saffron-gradient {
+      background: linear-gradient(135deg, #ff7e29 0%, #b82802 100%);
+    }
+    ::-webkit-scrollbar {
+      height: 6px;
+      width: 6px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #f97316;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="text-gray-800 min-h-screen flex flex-col">
+
+  <!-- ==================== हेडर एवं काउंटडाउन ==================== -->
+  <header class="saffron-gradient text-white py-8 px-4 shadow-xl border-b-4 border-amber-400">
+    <div class="max-w-6xl mx-auto text-center">
+      <div class="inline-block bg-amber-400 text-red-900 font-bold px-4 py-1 rounded-full text-sm mb-3 shadow">
+        🚩 ॐ श्री दुर्गाय नमः | सत्य पर असत्य की विजय 🚩
+      </div>
+      <h1 class="heading-font text-2xl md:text-4xl lg:text-5xl font-bold tracking-wide drop-shadow-md">
+        माँ भगवती का विशाल जागरण एवं रावण दहन
+      </h1>
+      <p class="text-amber-100 text-lg md:text-xl font-medium mt-1">
+        ग्राम - मकन्दीपुर | सार्वजनिक पारदर्शी आय-व्यय लेखा-जोखा
+      </p>
+
+      <!-- 20 अक्टूबर 2026, रात 8:00 बजे काउंटडाउन -->
+      <div class="mt-6 inline-block bg-black/30 backdrop-blur-sm px-6 py-4 rounded-2xl border border-white/20 shadow-inner">
+        <div class="text-xs uppercase tracking-widest text-amber-300 font-semibold mb-2">
+          <i class="fa-solid fa-clock"></i> जागरण एवं रावण दहन में शेष समय (20 अक्टूबर 2026, सायं 8:00 बजे)
+        </div>
+        <div class="grid grid-cols-4 gap-3 text-center" id="countdown-timer">
+          <div class="bg-white/10 rounded-lg p-2 min-w-[60px]">
+            <span class="block text-2xl md:text-3xl font-bold" id="cd-days">00</span>
+            <span class="text-xs text-amber-200">दिन</span>
+          </div>
+          <div class="bg-white/10 rounded-lg p-2 min-w-[60px]">
+            <span class="block text-2xl md:text-3xl font-bold" id="cd-hours">00</span>
+            <span class="text-xs text-amber-200">घंटे</span>
+          </div>
+          <div class="bg-white/10 rounded-lg p-2 min-w-[60px]">
+            <span class="block text-2xl md:text-3xl font-bold" id="cd-minutes">00</span>
+            <span class="text-xs text-amber-200">मिनट</span>
+          </div>
+          <div class="bg-white/10 rounded-lg p-2 min-w-[60px]">
+            <span class="block text-2xl md:text-3xl font-bold text-amber-300" id="cd-seconds">00</span>
+            <span class="text-xs text-amber-200">सेकंड</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== मुख्य कंटेंट ==================== -->
+  <main class="max-w-6xl mx-auto w-full px-4 py-8 flex-grow">
+    
+    <!-- कंट्रोल बार: वर्ष चयन एवं स्थिति -->
+    <div class="bg-white p-4 rounded-2xl shadow-md border border-amber-200 mb-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3 w-full md:w-auto">
+        <label for="year-select" class="font-bold text-gray-700 flex items-center gap-2 whitespace-nowrap">
+          <i class="fa-solid fa-calendar-days text-orange-500"></i> सत्र/वर्ष चुनें:
+        </label>
+        <select id="year-select" onchange="renderApp()" class="w-full md:w-56 bg-orange-50 border border-orange-300 font-bold text-orange-900 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-orange-500 cursor-pointer">
+          <option value="all">समस्त सत्र (All Records)</option>
+        </select>
+      </div>
+
+      <div class="flex items-center gap-2 text-xs text-gray-500">
+        <span id="sync-indicator" class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+        <span id="sync-status">Google Sheet से लाइव डेटा कनेक्टेड</span>
+      </div>
+    </div>
+
+    <!-- ==================== डैशबोर्ड समरी कार्ड्स ==================== -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <!-- पिछला अवशेष -->
+      <div class="bg-white p-5 rounded-2xl border-l-4 border-amber-500 shadow-sm flex items-center justify-between">
+        <div>
+          <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide">पिछला अवशेष (Opening)</p>
+          <h3 class="text-2xl font-black text-amber-700 mt-1" id="stat-opening">₹0</h3>
+          <p class="text-[11px] text-gray-400 mt-0.5">पुराने सत्रों का शेष</p>
+        </div>
+        <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-xl">
+          <i class="fa-solid fa-vault"></i>
+        </div>
+      </div>
+
+      <!-- कुल प्राप्त चंदा -->
+      <div class="bg-white p-5 rounded-2xl border-l-4 border-emerald-500 shadow-sm flex items-center justify-between">
+        <div>
+          <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide">कुल प्राप्त चंदा</p>
+          <h3 class="text-2xl font-black text-emerald-700 mt-1" id="stat-income">₹0</h3>
+          <p class="text-[11px] text-gray-400 mt-0.5" id="stat-income-count">0 दानदाता</p>
+        </div>
+        <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl">
+          <i class="fa-solid fa-hand-holding-dollar"></i>
+        </div>
+      </div>
+
+      <!-- कुल खर्च -->
+      <div class="bg-white p-5 rounded-2xl border-l-4 border-rose-500 shadow-sm flex items-center justify-between">
+        <div>
+          <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide">कुल खर्च</p>
+          <h3 class="text-2xl font-black text-rose-700 mt-1" id="stat-expense">₹0</h3>
+          <p class="text-[11px] text-gray-400 mt-0.5" id="stat-expense-count">0 मदों में व्यय</p>
+        </div>
+        <div class="w-12 h-12 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center text-xl">
+          <i class="fa-solid fa-receipt"></i>
+        </div>
+      </div>
+
+      <!-- शुद्ध शेष बचत -->
+      <div class="bg-white p-5 rounded-2xl border-l-4 border-blue-600 shadow-sm flex items-center justify-between">
+        <div>
+          <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide">शुद्ध शेष बचत (Net)</p>
+          <h3 class="text-2xl font-black text-blue-700 mt-1" id="stat-balance">₹0</h3>
+          <p class="text-[11px] text-gray-400 mt-0.5">(अवशेष + चंदा - खर्च)</p>
+        </div>
+        <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center text-xl">
+          <i class="fa-solid fa-scale-balanced"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== टैब नेविगेशन ==================== -->
+    <div class="flex border-b border-gray-200 mb-6 gap-2 overflow-x-auto">
+      <button onclick="switchTab('chanda')" id="tab-btn-chanda" class="tab-btn active px-5 py-3 font-bold border-b-4 border-orange-600 text-orange-600 flex items-center gap-2 whitespace-nowrap">
+        <i class="fa-solid fa-users"></i> चंदा संग्रह सूची
+      </button>
+      <button onclick="switchTab('kharch')" id="tab-btn-kharch" class="tab-btn px-5 py-3 font-bold border-b-4 border-transparent text-gray-500 hover:text-orange-600 flex items-center gap-2 whitespace-nowrap">
+        <i class="fa-solid fa-file-invoice-dollar"></i> खर्च का विवरण
+      </button>
+      <button onclick="switchTab('sahayog')" id="tab-btn-sahayog" class="tab-btn px-5 py-3 font-bold border-b-4 border-transparent text-gray-500 hover:text-orange-600 flex items-center gap-2 whitespace-nowrap">
+        <i class="fa-solid fa-hand-holding-heart"></i> वस्तु एवं सेवा सहयोग
+      </button>
+      <button onclick="switchTab('avshesh')" id="tab-btn-avshesh" class="tab-btn px-5 py-3 font-bold border-b-4 border-transparent text-gray-500 hover:text-orange-600 flex items-center gap-2 whitespace-nowrap">
+        <i class="fa-solid fa-clock-rotate-left"></i> पुराना अवशेष इतिहास
+      </button>
+    </div>
+
+    <!-- ==================== टैब 1: चंदा संग्रह ==================== -->
+    <section id="tab-chanda" class="tab-content block">
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-5 mb-6">
+        <div class="relative max-w-md w-full mb-4">
+          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-gray-400"></i>
+          <input type="text" id="chanda-search" oninput="filterChanda()" placeholder="दानदाता के नाम से खोजें..." class="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 outline-none text-sm font-medium">
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-sm">
+            <thead>
+              <tr class="bg-orange-100/70 text-orange-900 border-b border-orange-200">
+                <th class="py-3 px-4 font-bold rounded-l-lg">क्र.सं.</th>
+                <th class="py-3 px-4 font-bold">वर्ष</th>
+                <th class="py-3 px-4 font-bold">चंदा दाता का नाम</th>
+                <th class="py-3 px-4 font-bold text-right">प्राप्त राशि (₹)</th>
+                <th class="py-3 px-4 font-bold rounded-r-lg">टिप्पणी / विवरण</th>
+              </tr>
+            </thead>
+            <tbody id="chanda-table-body" class="divide-y divide-gray-100">
+              <tr><td colspan="5" class="text-center py-6 text-gray-400">डेटा लोड हो रहा है...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== टैब 2: खर्च का विवरण ==================== -->
+    <section id="tab-kharch" class="tab-content hidden">
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-5 mb-6">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-sm">
+            <thead>
+              <tr class="bg-rose-100/70 text-rose-900 border-b border-rose-200">
+                <th class="py-3 px-4 font-bold rounded-l-lg">क्र.सं.</th>
+                <th class="py-3 px-4 font-bold">वर्ष</th>
+                <th class="py-3 px-4 font-bold">खर्च की मद (विवरण)</th>
+                <th class="py-3 px-4 font-bold">श्रेणी</th>
+                <th class="py-3 px-4 font-bold text-right rounded-r-lg">खर्च राशि (₹)</th>
+              </tr>
+            </thead>
+            <tbody id="kharch-table-body" class="divide-y divide-gray-100">
+              <tr><td colspan="5" class="text-center py-6 text-gray-400">डेटा लोड हो रहा है...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== टैब 3: वस्तु एवं सेवा सहयोग ==================== -->
+    <section id="tab-sahayog" class="tab-content hidden">
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-5 mb-6">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-sm">
+            <thead>
+              <tr class="bg-amber-100/70 text-amber-900 border-b border-amber-200">
+                <th class="py-3 px-4 font-bold rounded-l-lg">क्र.सं.</th>
+                <th class="py-3 px-4 font-bold">वर्ष</th>
+                <th class="py-3 px-4 font-bold">सहयोगी का नाम</th>
+                <th class="py-3 px-4 font-bold">सहयोग का प्रकार</th>
+                <th class="py-3 px-4 font-bold rounded-r-lg">विस्तृत विवरण</th>
+              </tr>
+            </thead>
+            <tbody id="sahayog-table-body" class="divide-y divide-gray-100">
+              <tr><td colspan="5" class="text-center py-6 text-gray-400">डेटा लोड हो रहा है...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== टैब 4: पुराना अवशेष ==================== -->
+    <section id="tab-avshesh" class="tab-content hidden">
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-5 mb-6">
+        <p class="text-sm text-gray-600 mb-4">
+          यहाँ पिछले सभी त्योहारों एवं सत्रों की वह अवशेष धनराशि दर्ज है जिसे समिति के प्रारंभिक बजट में जोड़ा गया है:
+        </p>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-sm max-w-2xl">
+            <thead>
+              <tr class="bg-blue-100/70 text-blue-900 border-b border-blue-200">
+                <th class="py-3 px-4 font-bold rounded-l-lg">विवरण / पर्व</th>
+                <th class="py-3 px-4 font-bold text-right rounded-r-lg">अवशेष राशि (₹)</th>
+              </tr>
+            </thead>
+            <tbody id="avshesh-table-body" class="divide-y divide-gray-100">
+              <tr><td colspan="2" class="text-center py-6 text-gray-400">डेटा लोड हो रहा है...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== फुटर ==================== -->
+  <footer class="bg-gray-900 text-gray-300 py-6 px-4 text-center border-t border-gray-800 text-sm">
+    <p class="font-bold text-amber-400">माँ भगवती जागरण एवं रावण दहन कमेटी, मकन्दीपुर</p>
+    <p class="text-xs text-gray-500 mt-1">
+      यह पोर्टल ग्रामवासियों एवं सहयोगियों की जानकारी व पूर्ण पारदर्शिता हेतु निर्मित है।
+    </p>
+  </footer>
+
+  <!-- ==================== जावास्क्रिप्ट लॉजिक ==================== -->
+  <script>
+    // आपकी Google Sheet ID (लिंक से ली गई)
+    const GOOGLE_SHEET_ID = '1gWtnX3JFPxNuIsEMuwxR9xWLRUjDWWHN88mBL7xaUTE';
+
+    let rawData = {
+      avshesh: [
+        { desc: 'होली 2024', amount: 4228 },
+        { desc: 'दशहरा 2024', amount: 1000 },
+        { desc: 'होली 2025', amount: 537 }
+      ],
+      chanda: [],
+      kharch: [],
+      sahayog: []
+    };
+
+    // 20 अक्टूबर 2026, 20:00:00 IST काउंटडाउन
+    const targetDate = new Date('2026-10-20T20:00:00+05:30').getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const diff = targetDate - now;
+
+      if (diff <= 0) {
+        document.getElementById('countdown-timer').innerHTML = 
+          '<div class="col-span-4 text-xl font-bold text-amber-300">जय माता दी! कार्यक्रम प्रारंभ हो चुका है!</div>';
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      document.getElementById('cd-days').textContent = String(days).padStart(2, '0');
+      document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
+      document.getElementById('cd-minutes').textContent = String(minutes).padStart(2, '0');
+      document.getElementById('cd-seconds').textContent = String(seconds).padStart(2, '0');
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    function switchTab(tabName) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('border-orange-600', 'text-orange-600');
+        btn.classList.add('border-transparent', 'text-gray-500');
+      });
+
+      document.getElementById('tab-' + tabName).classList.remove('hidden');
+      const activeBtn = document.getElementById('tab-btn-' + tabName);
+      activeBtn.classList.add('border-orange-600', 'text-orange-600');
+      activeBtn.classList.remove('border-transparent', 'text-gray-500');
+    }
+
+    // Google Sheets Visualization API से डेटा लोड करना
+    async function fetchSheetTab(tabName) {
+      const url = https://docs.google.com/spreadsheets/d/${GOOGLE_SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(tabName)};
+      try {
+        const res = await fetch(url);
+        const text = await res.text();
+        const jsonStr = text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1);
+        const json = JSON.parse(jsonStr);
+        return json.table.rows.map(r => r.c.map(cell => (cell ? cell.v : '')));
+      } catch (err) {
+        console.warn(Tab '${tabName}' लोड करने में त्रुटि:, err);
+        return null;
+      }
+    }
+
+    async function loadAllData() {
+      const [avRows, chRows, khRows, saRows] = await Promise.all([
+        fetchSheetTab('पिछला_अवशेष'),
+        fetchSheetTab('चंदा_संग्रह'),
+        fetchSheetTab('खर्च_विवरण'),
+        fetchSheetTab('वस्तु_सेवा_सहयोग')
+      ]);
+
+      // चंदा संग्रह पार्स करें
+      if (chRows && chRows.length > 1) {
+        rawData.chanda = chRows.slice(1).map(r => ({
+          year: String(r[0] || '').trim(),
+          sr: r[1],
+          name: r[2],
+          amount: Number(r[3]) || 0,
+          remark: r[4] || '-'
+        })).filter(x => x.name);
+      }
+
+      // खर्च विवरण पार्स करें
+      if (khRows && khRows.length > 1) {
+        rawData.kharch = khRows.slice(1).map(r => ({
+          year: String(r[0] || '').trim(),
+          sr: r[1],
+          item: r[2],
+          amount: Number(r[3]) || 0,
+          category: r[4] || 'सामान्य'
+        })).filter(x => x.item);
+      }
+
+      // वस्तु/सेवा पार्स करें
+      if (saRows && saRows.length > 1) {
+        rawData.sahayog = saRows.slice(1).map(r => ({
+          year: String(r[0] || '').trim(),
+          sr: r[1],
+          name: r[2],
+          type: r[3],
+          detail: r[4] || '-'
+        })).filter(x => x.name);
+      }
+
+      // अवशेष पार्स करें (यदि शीट में मौजूद हो)
+      if (avRows && avRows.length > 1) {
+        const parsedAv = avRows.slice(1).map(r => ({
+          desc: r[0] || r[1] || 'पुराना अवशेष',
+          amount: Number(r[1] || r[2] || 0)
+        })).filter(x => x.amount > 0);
+        if (parsedAv.length > 0) rawData.avshesh = parsedAv;
+      }
+
+      // उपलब्ध वर्षों को ड्रॉपडाउन में जोड़ना
+      populateYearDropdown();
+      renderApp();
+    }
+
+    function populateYearDropdown() {
+      const yearsSet = new Set();
+      rawData.chanda.forEach(x => { if (x.year) yearsSet.add(x.year); });
+      rawData.kharch.forEach(x => { if (x.year) yearsSet.add(x.year); });
+      rawData.sahayog.forEach(x => { if (x.year) yearsSet.add(x.year); });
+
+      // यदि शीट अभी खाली है तो 2026 और 2025 डिफ़ॉल्ट रखें
+      if (yearsSet.size === 0) {
+        yearsSet.add('2026');
+        yearsSet.add('2025');
+      }
+
+      const sortedYears = Array.from(yearsSet).sort().reverse();
+      const select = document.getElementById('year-select');
+      select.innerHTML = '<option value="all">समस्त सत्र (All Records)</option>';
+      
+      sortedYears.forEach(yr => {
+        const opt = document.createElement('option');
+        opt.value = yr;
+        opt.textContent = सत्र ${yr};
+        if (yr === '2026') opt.selected = true; // 2026 को प्राथमिकता
+        select.appendChild(opt);
+      });
+    }
+
+    function renderApp() {
+      const selectedYear = document.getElementById('year-select').value;
+
+      const filteredChanda = selectedYear === 'all' 
+        ? rawData.chanda 
+        : rawData.chanda.filter(x => x.year === selectedYear);
+
+      const filteredKharch = selectedYear === 'all' 
+        ? rawData.kharch 
+        : rawData.kharch.filter(x => x.year === selectedYear);
+
+      const filteredSahayog = selectedYear === 'all' 
+        ? rawData.sahayog 
+        : rawData.sahayog.filter(x => x.year === selectedYear);
+
+      const totalIncome = filteredChanda.reduce((acc, cur) => acc + cur.amount, 0);
+      const totalExpense = filteredKharch.reduce((acc, cur) => acc + cur.amount, 0);
+      
+      // कुल अवशेष
+      const openingBalance = rawData.avshesh.reduce((acc, cur) => acc + cur.amount, 0);
+      const netBalance = (openingBalance + totalIncome) - totalExpense;
+
+      // कार्ड्स अपडेट
+      document.getElementById('stat-opening').textContent = '₹' + openingBalance.toLocaleString('en-IN');
+      document.getElementById('stat-income').textContent = '₹' + totalIncome.toLocaleString('en-IN');
+      document.getElementById('stat-income-count').textContent = ${filteredChanda.length} दानदाता;
+
+      document.getElementById('stat-expense').textContent = '₹' + totalExpense.toLocaleString('en-IN');
+      document.getElementById('stat-expense-count').textContent = ${filteredKharch.length} मदों में व्यय;
+
+      document.getElementById('stat-balance').textContent = '₹' + netBalance.toLocaleString('en-IN');
+
+      renderChandaTable(filteredChanda);
+      renderKharchTable(filteredKharch);
+      renderSahayogTable(filteredSahayog);
+      renderAvsheshTable();
+    }
+
+    function renderChandaTable(list) {
+      const tbody = document.getElementById('chanda-table-body');
+      if (list.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" class="text-center py-6 text-gray-400">इस सत्र के लिए कोई चंदा रिकॉर्ड नहीं मिला।</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = list.map((item, idx) => `
+        <tr class="hover:bg-amber-50/50 transition">
+          <td class="py-3 px-4 font-semibold text-gray-500">${item.sr || (idx + 1)}</td>
+          <td class="py-3 px-4"><span class="bg-orange-100 text-orange-800 text-xs px-2 py-0.5 rounded font-bold">${item.year}</span></td>
+          <td class="py-3 px-4 font-bold text-gray-900">${item.name}</td>
+          <td class="py-3 px-4 text-right font-black text-emerald-700">₹${Number(item.amount).toLocaleString('en-IN')}</td>
+          <td class="py-3 px-4 text-gray-600">${item.remark || '-'}</td>
+        </tr>
+      `).join('');
+    }
+
+    function filterChanda() {
+      const query = document.getElementById('chanda-search').value.toLowerCase().trim();
+      const selectedYear = document.getElementById('year-select').value;
+      
+      let baseList = selectedYear === 'all' 
+        ? rawData.chanda 
+        : rawData.chanda.filter(x => x.year === selectedYear);
+
+      if (query) {
+        baseList = baseList.filter(x => x.name.toLowerCase().includes(query));
+      }
+
+      renderChandaTable(baseList);
+    }
+
+    function renderKharchTable(list) {
+      const tbody = document.getElementById('kharch-table-body');
+      if (list.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" class="text-center py-6 text-gray-400">इस सत्र के लिए कोई खर्च दर्ज नहीं है।</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = list.map((item, idx) => `
+        <tr class="hover:bg-rose-50/50 transition">
+          <td class="py-3 px-4 font-semibold text-gray-500">${item.sr || (idx + 1)}</td>
+          <td class="py-3 px-4"><span class="bg-rose-100 text-rose-800 text-xs px-2 py-0.5 rounded font-bold">${item.year}</span></td>
+          <td class="py-3 px-4 font-bold text-gray-900">${item.item}</td>
+          <td class="py-3 px-4"><span class="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded">${item.category}</span></td>
+          <td class="py-3 px-4 text-right font-black text-rose-700">₹${Number(item.amount).toLocaleString('en-IN')}</td>
+        </tr>
+      `).join('');
+    }
+
+    function renderSahayogTable(list) {
+      const tbody = document.getElementById('sahayog-table-body');
+      if (list.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" class="text-center py-6 text-gray-400">इस सत्र के लिए कोई सहयोग दर्ज नहीं है।</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = list.map((item, idx) => `
+        <tr class="hover:bg-amber-50/50 transition">
+          <td class="py-3 px-4 font-semibold text-gray-500">${item.sr || (idx + 1)}</td>
+          <td class="py-3 px-4"><span class="bg-amber-100 text-amber-800 text-xs px-2 py-0.5 rounded font-bold">${item.year}</span></td>
+          <td class="py-3 px-4 font-bold text-gray-900">${item.name}</td>
+          <td class="py-3 px-4 font-semibold text-orange-700">${item.type}</td>
+          <td class="py-3 px-4 text-gray-600">${item.detail}</td>
+        </tr>
+      `).join('');
+    }
+
+    function renderAvsheshTable() {
+      const tbody = document.getElementById('avshesh-table-body');
+      let total = 0;
+      tbody.innerHTML = rawData.avshesh.map(item => {
+        total += item.amount;
+        return `
+          <tr class="hover:bg-blue-50/50 transition">
+            <td class="py-3 px-4 font-bold text-gray-800">${item.desc}</td>
+            <td class="py-3 px-4 text-right font-black text-blue-700">₹${item.amount.toLocaleString('en-IN')}</td>
+          </tr>
+        `;
+      }).join('') + `
+        <tr class="bg-blue-100/70 font-bold border-t-2 border-blue-300">
+          <td class="py-3 px-4 text-blue-950">कुल पुराना अवशेष (Grand Total)</td>
+          <td class="py-3 px-4 text-right text-blue-950 font-black text-base">₹${total.toLocaleString('en-IN')}</td>
+        </tr>
+      `;
+    }
+
+    loadAllData();
+  </script>
+</body>
+</html>
