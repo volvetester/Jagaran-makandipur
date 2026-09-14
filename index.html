@@ -63,8 +63,8 @@
       <div class="flex items-center gap-2">
         <select id="yearSelector" onchange="changeYear(this.value)" class="bg-orange-50 border border-orange-300 text-gray-800 font-bold rounded-xl px-3 py-1.5 text-xs sm:text-sm outline-none">
           <option value="2024">सत्र 2024</option>
-          <option value="2025" selected>सत्र 2025</option>
-          <option value="2026">सत्र 2026</option>
+          <option value="2025">सत्र 2025</option>
+          <option value="2026" selected>सत्र 2026</option>
           <option value="2027">सत्र 2027</option>
           <option value="2028">सत्र 2028</option>
           <option value="2029">सत्र 2029</option>
@@ -83,17 +83,20 @@
 
     <!-- डैशबोर्ड कार्ड्स -->
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 mb-5">
-      <div class="bg-white rounded-xl p-3 border-l-4 border-amber-500 shadow-sm">
-        <div class="text-[10px] font-bold text-gray-500">पिछला अवशेष</div>
+      <div class="bg-white rounded-xl p-3 border-l-4 border-amber-500 shadow-sm cursor-pointer hover:bg-amber-50/60 transition" onclick="showSection('sec-prev', 'btn-prev')">
+        <div class="text-[10px] font-bold text-gray-500 flex items-center justify-between">
+          <span>पिछला अवशेष</span>
+          <i class="fa-solid fa-circle-info text-amber-500"></i>
+        </div>
         <div id="stat-prev" class="text-base sm:text-xl font-black text-amber-600 mt-0.5">₹0</div>
-        <div class="text-[9px] text-gray-400">आरंभिक शेष कोष</div>
+        <div class="text-[9px] text-gray-400">आरंभिक शेष कोष (विवरण देखें)</div>
       </div>
-      <div class="bg-white rounded-xl p-3 border-l-4 border-emerald-500 shadow-sm">
+      <div class="bg-white rounded-xl p-3 border-l-4 border-emerald-500 shadow-sm cursor-pointer hover:bg-emerald-50/60 transition" onclick="showSection('sec-don', 'btn-don')">
         <div class="text-[10px] font-bold text-gray-500">कुल चंदा</div>
         <div id="stat-donations" class="text-base sm:text-xl font-black text-emerald-600 mt-0.5">₹0</div>
         <div id="stat-don-count" class="text-[9px] text-gray-400">0 सहयोगी</div>
       </div>
-      <div class="bg-white rounded-xl p-3 border-l-4 border-red-500 shadow-sm">
+      <div class="bg-white rounded-xl p-3 border-l-4 border-red-500 shadow-sm cursor-pointer hover:bg-red-50/60 transition" onclick="showSection('sec-exp', 'btn-exp')">
         <div class="text-[10px] font-bold text-gray-500">कुल खर्च</div>
         <div id="stat-expenses" class="text-base sm:text-xl font-black text-red-600 mt-0.5">₹0</div>
         <div id="stat-exp-count" class="text-[9px] text-gray-400">0 मदें</div>
@@ -105,15 +108,18 @@
       </div>
     </div>
 
-    <!-- टैब बटन -->
-    <div class="flex border-b border-orange-200 mb-4 bg-white/80 rounded-xl p-1 shadow-sm gap-1">
-      <button onclick="showSection('sec-don', 'btn-don')" id="btn-don" class="flex-1 py-2 text-xs sm:text-sm font-bold rounded-lg text-orange-600 bg-white shadow-sm flex items-center justify-center gap-1">
+    <!-- टैब बटन (4 टैब) -->
+    <div class="grid grid-cols-4 border-b border-orange-200 mb-4 bg-white/90 rounded-xl p-1 shadow-sm gap-1">
+      <button onclick="showSection('sec-don', 'btn-don')" id="btn-don" class="py-2 text-[11px] sm:text-sm font-bold rounded-lg text-orange-600 bg-white shadow-sm flex items-center justify-center gap-1 transition">
         <i class="fa-solid fa-hand-holding-dollar"></i> चंदा सूची
       </button>
-      <button onclick="showSection('sec-exp', 'btn-exp')" id="btn-exp" class="flex-1 py-2 text-xs sm:text-sm font-bold rounded-lg text-gray-500 flex items-center justify-center gap-1">
+      <button onclick="showSection('sec-exp', 'btn-exp')" id="btn-exp" class="py-2 text-[11px] sm:text-sm font-bold rounded-lg text-gray-500 flex items-center justify-center gap-1 transition">
         <i class="fa-solid fa-receipt"></i> खर्च विवरण
       </button>
-      <button onclick="showSection('sec-ink', 'btn-ink')" id="btn-ink" class="flex-1 py-2 text-xs sm:text-sm font-bold rounded-lg text-gray-500 flex items-center justify-center gap-1">
+      <button onclick="showSection('sec-prev', 'btn-prev')" id="btn-prev" class="py-2 text-[11px] sm:text-sm font-bold rounded-lg text-gray-500 flex items-center justify-center gap-1 transition">
+        <i class="fa-solid fa-vault"></i> अवशेष बचत
+      </button>
+      <button onclick="showSection('sec-ink', 'btn-ink')" id="btn-ink" class="py-2 text-[11px] sm:text-sm font-bold rounded-lg text-gray-500 flex items-center justify-center gap-1 transition">
         <i class="fa-solid fa-wheat-awn"></i> वस्तु/सेवा
       </button>
     </div>
@@ -155,7 +161,29 @@
       </div>
     </section>
 
-    <!-- 3. वस्तु/सेवा सहयोग -->
+    <!-- 3. अवशेष बचत किसके पास है (सत्र-वार पारदर्शी सूची) -->
+    <section id="sec-prev" class="hidden bg-white rounded-2xl shadow p-4 border border-orange-100">
+      <div class="mb-3 p-2.5 bg-amber-50 rounded-xl border border-amber-200 text-xs text-amber-900 flex items-center gap-2">
+        <i class="fa-solid fa-info-circle text-amber-600 text-sm"></i>
+        <span>सत्र के आरंभ में कुल अवशेष कोष और धारकों (होली / दशहरा) का विवरण:</span>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs sm:text-sm">
+          <thead>
+            <tr class="bg-amber-100/70 text-amber-950 border-b border-amber-200">
+              <th class="py-2 px-3">क्र.</th>
+              <th class="py-2 px-3">सत्र / पर्व</th>
+              <th class="py-2 px-3">धारक का नाम (किसके पास है)</th>
+              <th class="py-2 px-3 text-right">धनराशि (₹)</th>
+              <th class="py-2 px-3">टिप्पणी</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-previous" class="divide-y divide-gray-100"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 4. वस्तु/सेवा सहयोग -->
     <section id="sec-ink" class="hidden bg-white rounded-2xl shadow p-4 border border-orange-100">
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5" id="box-inkind"></div>
     </section>
@@ -163,8 +191,8 @@
   </main>
 
   <script>
-    // 1. उल्टी गिनती घड़ी (सीधा टाइमस्टैम्प - बिना किसी एरर के तुरंत चलेगा)
-    var targetTimestamp = 1792506600000; // 20 Oct 2026 20:00 IST
+    // 1. उल्टी गिनती घड़ी (20 अक्टूबर 2026 सायं 8:00 बजे)
+    var targetTimestamp = 1792506600000;
     function startTimer() {
       var diff = targetTimestamp - new Date().getTime();
       if (diff > 0) {
@@ -190,12 +218,16 @@
     // 2. मास्टर डेटा स्ट्रक्चर (2024 से 2035)
     var store = {};
     for (var yr = 2024; yr <= 2035; yr++) {
-      store[String(yr)] = { prev: 0, don: [], exp: [], ink: [] };
+      store[String(yr)] = { prev: 0, prevList: [], don: [], exp: [], ink: [] };
     }
 
-    // 2025 का सुरक्षित डेटा
+    // 2025 का इनबिल्ट सुरक्षित डेटा
     store["2025"].prev = 5765;
-    store["2026"].prev = 20283;
+    store["2025"].prevList = [
+      ["दशहरा 2024", "Deepu", 4228, "होली और दशहरा 2024 का अवशेष"],
+      ["दशहरा 2024", "Deepak", 1000, "दशहरा 2024 का अवशेष"],
+      ["होली 2025", "Deepu", 537, "होली 2025 का अवशेष"]
+    ];
     store["2025"].don = [
       ["Umashankar", 5100], ["Sandeep", 5000], ["Yogendra", 5100], ["Deepu", 5100], ["Satendra", 2100],
       ["Pulli chachu", 2100], ["Abhay", 2100], ["Soham", 5100], ["Himanshu", 5100], ["Aman", 5000],
@@ -253,11 +285,14 @@
       ["सुशील", "2 लीटर शुद्ध दूध सहयोग"]
     ];
 
-    var currentYear = "2025";
+    // 2026 का आरंभिक अवशेष (गूगल शीट से नया डेटा आने पर भी यह सुरक्षित रहेगा)
+    store["2026"].prev = 20283;
+
+    var currentYear = "2026";
 
     // 3. स्क्रीन रेंडरर
     function render() {
-      var d = store[currentYear] || { prev: 0, don: [], exp: [], ink: [] };
+      var d = store[currentYear] || { prev: 0, prevList: [], don: [], exp: [], ink: [] };
       var totDon = 0;
       for (var i = 0; i < d.don.length; i++) totDon += Number(d.don[i][1]);
       var totExp = 0;
@@ -271,7 +306,7 @@
       document.getElementById("stat-exp-count").textContent = d.exp.length + " मदें";
       document.getElementById("stat-balance").textContent = "₹" + net.toLocaleString("en-IN");
 
-      // चंदा तालिका
+      // 1. चंदा तालिका
       var donBody = document.getElementById("tbody-donations");
       donBody.innerHTML = "";
       if (d.don.length === 0) {
@@ -288,7 +323,7 @@
         }
       }
 
-      // खर्च तालिका
+      // 2. खर्च तालिका
       var expBody = document.getElementById("tbody-expenses");
       expBody.innerHTML = "";
       if (d.exp.length === 0) {
@@ -304,7 +339,25 @@
         }
       }
 
-      // वस्तु/सेवा कार्ड्स
+      // 3. पिछला अवशेष तालिका (किसके पास कितना है)
+      var prevBody = document.getElementById("tbody-previous");
+      prevBody.innerHTML = "";
+      if (!d.prevList || d.prevList.length === 0) {
+        prevBody.innerHTML = '<tr><td colspan="5" class="py-8 text-center text-gray-400 font-medium">सत्र ' + currentYear + ' में कुल अवशेष राशि ₹' + Number(d.prev).toLocaleString("en-IN") + ' है। (अलग मद विवरण दर्ज नहीं है)</td></tr>';
+      } else {
+        for (var p = 0; p < d.prevList.length; p++) {
+          var trP = document.createElement("tr");
+          trP.className = "hover:bg-amber-50/50";
+          trP.innerHTML = '<td class="py-2.5 px-3 text-gray-400 font-mono">' + (p + 1) + '</td>' +
+            '<td class="py-2.5 px-3 font-semibold text-gray-800">' + d.prevList[p][0] + '</td>' +
+            '<td class="py-2.5 px-3 text-blue-700 font-bold">' + (d.prevList[p][1] || "—") + '</td>' +
+            '<td class="py-2.5 px-3 text-right font-bold text-amber-700">₹' + Number(d.prevList[p][2]).toLocaleString("en-IN") + '</td>' +
+            '<td class="py-2.5 px-3 text-gray-500 text-xs">' + (d.prevList[p][3] || "—") + '</td>';
+          prevBody.appendChild(trP);
+        }
+      }
+
+      // 4. वस्तु/सेवा कार्ड्स
       var inBox = document.getElementById("box-inkind");
       inBox.innerHTML = "";
       if (d.ink.length === 0) {
@@ -321,10 +374,8 @@
       }
     }
 
-    // सीधे पेज लोड पर रेंडर
     render();
 
-    // 4. साल बदलना और सर्च
     function changeYear(yr) {
       currentYear = yr;
       render();
@@ -342,8 +393,8 @@
     }
 
     function showSection(secId, btnId) {
-      var secs = ["sec-don", "sec-exp", "sec-ink"];
-      var btns = ["btn-don", "btn-exp", "btn-ink"];
+      var secs = ["sec-don", "sec-exp", "sec-prev", "sec-ink"];
+      var btns = ["btn-don", "btn-exp", "btn-prev", "btn-ink"];
       for (var i = 0; i < secs.length; i++) {
         document.getElementById(secs[i]).classList.add("hidden");
         document.getElementById(btns[i]).classList.remove("text-orange-600", "bg-white", "shadow-sm");
@@ -354,7 +405,7 @@
       document.getElementById(btnId).classList.remove("text-gray-500");
     }
 
-    // 5. Google Sheet बैकग्राउंड सिंक
+    // Google Sheet ऑटो-सिंक (चारों शीट्स)
     var SHEET_ID = "1gWtnX3JFPxNuIsEMuwxR9xWLRUjDWWHN88mBL7xaUTE";
     function loadTab(tabName, cb) {
       var sc = document.createElement("script");
@@ -369,7 +420,42 @@
     }
 
     setTimeout(function() {
-      // चंदा संग्रह
+      // 1. पिछला अवशेष फेच करना (सत्र-वार और धारक-वार)
+      loadTab("पिछला_अवशेष", function(rows) {
+        var yearTotals = {};
+        for (var y = 2026; y <= 2035; y++) {
+          store[String(y)].prevList = [];
+          yearTotals[String(y)] = 0;
+        }
+
+        for (var i = 0; i < rows.length; i++) {
+          var c = rows[i].c;
+          if (!c) continue;
+          var item = c[0] ? String(c[0].v || c[0].f).trim() : "";
+          var holder = c[1] ? String(c[1].v || c[1].f).trim() : "";
+          var amt = c[2] ? parseFloat(c[2].v) : 0;
+          var note = c[3] ? String(c[3].v || c[3].f).trim() : "";
+
+          if (item === "कुल योग" || isNaN(amt) || amt <= 0) continue;
+
+          var matchedYr = item.match(/\d{4}/);
+          var yrStr = matchedYr ? matchedYr[0] : "";
+
+          if (yrStr && store[yrStr] && yrStr !== "2025") {
+            store[yrStr].prevList.push([item, holder, amt, note]);
+            yearTotals[yrStr] += amt;
+          }
+        }
+
+        for (var yrKey in yearTotals) {
+          if (yearTotals[yrKey] > 0) {
+            store[yrKey].prev = yearTotals[yrKey];
+          }
+        }
+        render();
+      });
+
+      // 2. चंदा संग्रह
       loadTab("चंदा_संग्रह", function(rows) {
         for (var y = 2026; y <= 2035; y++) store[String(y)].don = [];
         for (var i = 0; i < rows.length; i++) {
@@ -385,7 +471,7 @@
         render();
       });
 
-      // खर्च विवरण
+      // 3. खर्च विवरण
       loadTab("खर्च_विवरण", function(rows) {
         for (var y = 2026; y <= 2035; y++) store[String(y)].exp = [];
         for (var i = 0; i < rows.length; i++) {
@@ -401,7 +487,7 @@
         render();
       });
 
-      // वस्तु/सेवा सहयोग
+      // 4. वस्तु/सेवा सहयोग
       loadTab("वस्तु_सेवा_सहयोग", function(rows) {
         for (var y = 2026; y <= 2035; y++) store[String(y)].ink = [];
         for (var i = 0; i < rows.length; i++) {
