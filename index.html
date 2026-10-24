@@ -8,57 +8,223 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
     body { font-family: system-ui, -apple-system, sans-serif; background-color: #fffaf4; }
+
+    /* =========================================================
+       सटीक 2-पेज प्रिंट लेआउट (A4 साइज)
+       ========================================================= */
+    @page {
+      size: A4 portrait;
+      margin: 5mm 6mm 5mm 6mm;
+    }
+
+    @media print {
+      html, body {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        font-size: 8pt !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      /* अनावश्यक स्क्रीन घटक प्रिंट में छुपाएं */
+      .no-print, #searchInput, .search-container, #tab-buttons, #yearSelector, #syncBadge, .timer-box {
+        display: none !important;
+      }
+
+      *, .overflow-x-auto {
+        overflow: visible !important;
+      }
+
+      /* हेडर कॉम्पैक्ट */
+      header {
+        padding: 4px 6px !important;
+        margin-bottom: 4px !important;
+        box-shadow: none !important;
+        border-radius: 4px !important;
+      }
+      header .badge-top {
+        font-size: 7pt !important;
+        padding: 1px 6px !important;
+        margin-bottom: 2px !important;
+      }
+      header h1 {
+        font-size: 13.5pt !important;
+        line-height: 1.15 !important;
+        margin: 0 !important;
+      }
+      header p {
+        font-size: 8pt !important;
+        margin-top: 1px !important;
+      }
+
+      main {
+        margin-top: 0 !important;
+        max-width: 100% !important;
+        padding: 0 !important;
+      }
+
+      .print-year-bar {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        padding: 1px 4px !important;
+        margin-bottom: 4px !important;
+        border-bottom: 1px solid #fed7aa !important;
+      }
+      .print-year-title {
+        display: inline-block !important;
+        font-size: 10pt !important;
+        font-weight: bold !important;
+        color: #c2410c !important;
+      }
+
+      /* 4 समरी कार्ड्स */
+      .summary-cards-grid {
+        display: grid !important;
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 5px !important;
+        margin-bottom: 5px !important;
+      }
+      .card-stat {
+        border-width: 1.5px !important;
+        box-shadow: none !important;
+        padding: 2.5px 5px !important;
+        border-radius: 4px !important;
+      }
+      .card-stat .stat-title {
+        font-size: 7.2pt !important;
+        line-height: 1 !important;
+      }
+      .card-stat .stat-val {
+        font-size: 11pt !important;
+        font-weight: 900 !important;
+        line-height: 1.1 !important;
+        margin-top: 1px !important;
+      }
+      .card-stat .stat-sub {
+        font-size: 6.5pt !important;
+        line-height: 1 !important;
+      }
+
+      /* 2-कॉलम प्रिंट लेआउट */
+      .print-two-columns {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 8px !important;
+        width: 100% !important;
+      }
+
+      .print-col-left, .print-col-right {
+        display: block !important;
+        width: 100% !important;
+      }
+
+      #sec-don, #sec-exp, #sec-prev, #sec-ink {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        border: 1px solid #cbd5e1 !important;
+        padding: 4px 6px !important;
+        border-radius: 5px !important;
+        box-shadow: none !important;
+        margin-bottom: 6px !important;
+      }
+
+      /* टेबल्स प्रिंट फॉर्मेट */
+      table {
+        width: 100% !important;
+        border-collapse: collapse !important;
+      }
+      table th {
+        padding: 1.5px 3px !important;
+        font-size: 7.2pt !important;
+        font-weight: 800 !important;
+        line-height: 1.15 !important;
+      }
+      table td {
+        padding: 1.2px 3px !important;
+        font-size: 7.5pt !important;
+        line-height: 1.15 !important;
+      }
+      tr {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+
+      /* वस्तु एवं सेवा सहयोग: 1 क्षेत्र में 1 ही पूरा कार्ड (Full Width Single Column) */
+      #box-inkind {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 4px !important;
+      }
+      #box-inkind > div {
+        width: 100% !important;
+        padding: 3px 6px !important;
+        border-radius: 5px !important;
+        background-color: #fefce8 !important;
+        border: 1px solid #fef08a !important;
+      }
+    }
   </style>
 </head>
 <body class="text-gray-800 pb-16">
 
   <!-- हेडर -->
-  <header class="bg-gradient-to-b from-amber-600 via-orange-600 to-red-600 text-white pt-6 pb-10 px-4 text-center shadow-lg">
-    <div class="inline-block bg-amber-400 text-red-900 font-bold px-4 py-1 rounded-full text-xs sm:text-sm mb-3 shadow">
+  <header class="bg-gradient-to-b from-amber-600 via-orange-600 to-red-600 text-white pt-5 pb-8 px-4 text-center shadow-lg">
+    <div class="badge-top inline-block bg-amber-400 text-red-900 font-bold px-4 py-0.5 rounded-full text-xs sm:text-sm mb-2 shadow">
       🚩 ॐ श्री दुर्गायै नमः | असत्य पर सत्य की विजय 🚩
     </div>
-    <h1 class="text-2xl sm:text-4xl font-black tracking-wide drop-shadow">
+    <h1 class="text-2xl sm:text-3xl font-black tracking-wide drop-shadow">
       माँ भगवती का विशाल जागरण एवं रावण दहन
     </h1>
-    <p class="text-xs sm:text-base text-orange-100 mt-1 font-medium">
+    <p class="text-xs sm:text-sm text-orange-100 mt-0.5 font-medium">
       ग्राम - मकन्दीपुर | सार्वजनिक पारदर्शी आय-व्यय लेखा-जोखा
     </p>
 
-    <!-- उल्टी गिनती घड़ी -->
-    <div class="mt-5 max-w-md mx-auto bg-black/30 backdrop-blur rounded-2xl p-3.5 border border-white/20">
-      <div class="text-[11px] sm:text-xs text-yellow-200 font-semibold mb-2 flex items-center justify-center gap-1.5">
+    <!-- उल्टी / सीधी (Count-Up) घड़ी -->
+    <div class="timer-box mt-4 max-w-md mx-auto bg-black/30 backdrop-blur rounded-2xl p-3 border border-white/20">
+      <div id="timer-header" class="text-[11px] sm:text-xs text-yellow-200 font-semibold mb-1.5 flex items-center justify-center gap-1.5">
         <i class="fa-regular fa-clock"></i>
-        <span>जागरण एवं रावण दहन (20 अक्टूबर 2026, सायं 8:00 बजे)</span>
+        <span id="timer-status-text">कार्यक्रम संपन्न हुए बीता समय (सीधी घड़ी)</span>
       </div>
       <div class="grid grid-cols-4 gap-2 text-center">
-        <div class="bg-white/10 rounded-xl py-2 border border-white/10">
-          <span id="cd-days" class="block text-xl sm:text-3xl font-extrabold text-white">00</span>
-          <span class="text-[10px] text-orange-200">दिन</span>
+        <div class="bg-white/10 rounded-xl py-1.5 border border-white/10">
+          <span id="cd-days" class="block text-lg sm:text-2xl font-extrabold text-white">00</span>
+          <span class="text-[9px] text-orange-200">दिन बीत गए</span>
         </div>
-        <div class="bg-white/10 rounded-xl py-2 border border-white/10">
-          <span id="cd-hours" class="block text-xl sm:text-3xl font-extrabold text-white">00</span>
-          <span class="text-[10px] text-orange-200">घंटे</span>
+        <div class="bg-white/10 rounded-xl py-1.5 border border-white/10">
+          <span id="cd-hours" class="block text-lg sm:text-2xl font-extrabold text-white">00</span>
+          <span class="text-[9px] text-orange-200">घंटे</span>
         </div>
-        <div class="bg-white/10 rounded-xl py-2 border border-white/10">
-          <span id="cd-mins" class="block text-xl sm:text-3xl font-extrabold text-white">00</span>
-          <span class="text-[10px] text-orange-200">मिनट</span>
+        <div class="bg-white/10 rounded-xl py-1.5 border border-white/10">
+          <span id="cd-mins" class="block text-lg sm:text-2xl font-extrabold text-white">00</span>
+          <span class="text-[9px] text-orange-200">मिनट</span>
         </div>
-        <div class="bg-white/10 rounded-xl py-2 border border-white/10">
-          <span id="cd-secs" class="block text-xl sm:text-3xl font-extrabold text-yellow-300">00</span>
-          <span class="text-[10px] text-orange-200">सेकंड</span>
+        <div class="bg-white/10 rounded-xl py-1.5 border border-white/10">
+          <span id="cd-secs" class="block text-lg sm:text-2xl font-extrabold text-yellow-300">00</span>
+          <span class="text-[9px] text-orange-200">सेकंड</span>
         </div>
+      </div>
+      <div id="event-completed-msg" class="mt-2 pt-1.5 border-t border-white/20 text-center">
+        <span class="inline-flex items-center gap-1 bg-emerald-500 text-white font-bold text-xs px-2.5 py-0.5 rounded-full shadow-sm">
+          <i class="fa-solid fa-circle-check"></i> जागरण व रावण दहन सकुशल व भव्यता से संपन्न
+        </span>
+        <p class="text-[10px] text-amber-200 mt-0.5 font-medium">समस्त ग्रामवासियों एवं सहयोगियों का हार्दिक आभार</p>
       </div>
     </div>
   </header>
 
   <!-- मुख्य बॉडी -->
-  <main class="max-w-4xl mx-auto px-4 -mt-5">
+  <main class="max-w-5xl mx-auto px-4 -mt-4">
 
-    <!-- वर्ष चयनकर्ता (2024 से 2035) -->
-    <div class="bg-white rounded-2xl shadow p-3.5 mb-4 border border-orange-100 flex flex-row items-center justify-between gap-2">
+    <!-- वर्ष चयनकर्ता एवं प्रिंट बटन बार -->
+    <div class="print-year-bar bg-white rounded-2xl shadow p-3 mb-3 border border-orange-100 flex flex-row items-center justify-between gap-2">
       <div class="flex items-center gap-2 text-xs sm:text-sm font-bold text-gray-700">
         <i class="fa-solid fa-calendar-days text-orange-500 text-base"></i>
         <span>सत्र / वर्ष:</span>
+        <span id="printYearDisplay" class="hidden print-year-title">सत्र 2026</span>
       </div>
       <div class="flex items-center gap-2">
         <select id="yearSelector" onchange="changeYear(this.value)" class="bg-orange-50 border border-orange-300 text-gray-800 font-bold rounded-xl px-3 py-1.5 text-xs sm:text-sm outline-none">
@@ -78,38 +244,42 @@
         <span id="syncBadge" class="text-[10px] text-emerald-700 font-bold bg-emerald-100 px-2 py-1 rounded-md">
           ● डेटा एक्टिव
         </span>
+        <button onclick="triggerPrint()" class="no-print bg-orange-600 hover:bg-orange-700 text-white font-bold px-3 py-1.5 rounded-xl text-xs sm:text-sm flex items-center gap-1.5 shadow transition">
+          <i class="fa-solid fa-print"></i>
+          <span>प्रिंट निकालें (2 पेज)</span>
+        </button>
       </div>
     </div>
 
-    <!-- डैशबोर्ड कार्ड्स -->
-    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 mb-5">
-      <div class="bg-white rounded-xl p-3 border-l-4 border-amber-500 shadow-sm cursor-pointer hover:bg-amber-50/60 transition" onclick="showSection('sec-prev', 'btn-prev')">
-        <div class="text-[10px] font-bold text-gray-500 flex items-center justify-between">
+    <!-- डैशबोर्ड समरी कार्ड्स -->
+    <div class="summary-cards-grid grid grid-cols-2 sm:grid-cols-4 gap-2.5 mb-3">
+      <div class="card-stat bg-white rounded-xl p-2.5 border-l-4 border-amber-500 shadow-sm cursor-pointer hover:bg-amber-50/60 transition" onclick="showSection('sec-prev', 'btn-prev')">
+        <div class="stat-title text-[10px] font-bold text-gray-500 flex items-center justify-between">
           <span>पिछला अवशेष</span>
-          <i class="fa-solid fa-circle-info text-amber-500"></i>
+          <i class="fa-solid fa-circle-info text-amber-500 no-print"></i>
         </div>
-        <div id="stat-prev" class="text-base sm:text-xl font-black text-amber-600 mt-0.5">₹0</div>
-        <div class="text-[9px] text-gray-400">आरंभिक शेष कोष (विवरण देखें)</div>
+        <div id="stat-prev" class="stat-val text-base sm:text-xl font-black text-amber-600 mt-0.5">₹0</div>
+        <div class="stat-sub text-[9px] text-gray-400">आरंभिक शेष कोष</div>
       </div>
-      <div class="bg-white rounded-xl p-3 border-l-4 border-emerald-500 shadow-sm cursor-pointer hover:bg-emerald-50/60 transition" onclick="showSection('sec-don', 'btn-don')">
-        <div class="text-[10px] font-bold text-gray-500">कुल चंदा</div>
-        <div id="stat-donations" class="text-base sm:text-xl font-black text-emerald-600 mt-0.5">₹0</div>
-        <div id="stat-don-count" class="text-[9px] text-gray-400">0 सहयोगी</div>
+      <div class="card-stat bg-white rounded-xl p-2.5 border-l-4 border-emerald-500 shadow-sm cursor-pointer hover:bg-emerald-50/60 transition" onclick="showSection('sec-don', 'btn-don')">
+        <div class="stat-title text-[10px] font-bold text-gray-500">कुल चंदा</div>
+        <div id="stat-donations" class="stat-val text-base sm:text-xl font-black text-emerald-600 mt-0.5">₹0</div>
+        <div id="stat-don-count" class="stat-sub text-[9px] text-gray-400">0 सहयोगी</div>
       </div>
-      <div class="bg-white rounded-xl p-3 border-l-4 border-red-500 shadow-sm cursor-pointer hover:bg-red-50/60 transition" onclick="showSection('sec-exp', 'btn-exp')">
-        <div class="text-[10px] font-bold text-gray-500">कुल खर्च</div>
-        <div id="stat-expenses" class="text-base sm:text-xl font-black text-red-600 mt-0.5">₹0</div>
-        <div id="stat-exp-count" class="text-[9px] text-gray-400">0 मदें</div>
+      <div class="card-stat bg-white rounded-xl p-2.5 border-l-4 border-red-500 shadow-sm cursor-pointer hover:bg-red-50/60 transition" onclick="showSection('sec-exp', 'btn-exp')">
+        <div class="stat-title text-[10px] font-bold text-gray-500">कुल खर्च</div>
+        <div id="stat-expenses" class="stat-val text-base sm:text-xl font-black text-red-600 mt-0.5">₹0</div>
+        <div id="stat-exp-count" class="stat-sub text-[9px] text-gray-400">0 मदें</div>
       </div>
-      <div class="bg-white rounded-xl p-3 border-l-4 border-blue-500 shadow-sm">
-        <div class="text-[10px] font-bold text-gray-500">शुद्ध शेष बचत</div>
-        <div id="stat-balance" class="text-base sm:text-xl font-black text-blue-600 mt-0.5">₹0</div>
-        <div class="text-[9px] text-gray-400">अंतिम शेष कोष</div>
+      <div class="card-stat bg-white rounded-xl p-2.5 border-l-4 border-blue-500 shadow-sm">
+        <div class="stat-title text-[10px] font-bold text-gray-500">शुद्ध शेष बचत</div>
+        <div id="stat-balance" class="stat-val text-base sm:text-xl font-black text-blue-600 mt-0.5">₹0</div>
+        <div class="stat-sub text-[9px] text-gray-400">अंतिम शेष कोष</div>
       </div>
     </div>
 
-    <!-- टैब बटन (4 टैब) -->
-    <div class="grid grid-cols-4 border-b border-orange-200 mb-4 bg-white/90 rounded-xl p-1 shadow-sm gap-1">
+    <!-- टैब बटन (स्क्रीन पर बदलने हेतु) -->
+    <div id="tab-buttons" class="grid grid-cols-4 border-b border-orange-200 mb-4 bg-white/90 rounded-xl p-1 shadow-sm gap-1">
       <button onclick="showSection('sec-don', 'btn-don')" id="btn-don" class="py-2 text-[11px] sm:text-sm font-bold rounded-lg text-orange-600 bg-white shadow-sm flex items-center justify-center gap-1 transition">
         <i class="fa-solid fa-hand-holding-dollar"></i> चंदा सूची
       </button>
@@ -124,78 +294,133 @@
       </button>
     </div>
 
-    <!-- 1. चंदा सूची -->
-    <section id="sec-don" class="bg-white rounded-2xl shadow p-4 border border-orange-100">
-      <div class="relative mb-3">
-        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
-        <input type="text" id="searchInput" oninput="filterRows(this.value)" placeholder="दानदाता का नाम खोजें (उदा: Umashankar, दीपक)..." class="w-full pl-9 pr-3 py-2 bg-gray-50 border border-gray-200 rounded-xl text-xs sm:text-sm focus:bg-white focus:border-orange-400 outline-none" />
-      </div>
-      <div class="overflow-x-auto">
-        <table class="w-full text-left text-xs sm:text-sm">
-          <thead>
-            <tr class="bg-orange-50 text-orange-950 border-b border-orange-200">
-              <th class="py-2 px-3">क्र.</th>
-              <th class="py-2 px-3">चंदा दाता का नाम</th>
-              <th class="py-2 px-3 text-right">राशि (₹)</th>
-              <th class="py-2 px-3 text-center">स्थिति</th>
-            </tr>
-          </thead>
-          <tbody id="tbody-donations" class="divide-y divide-gray-100"></tbody>
-        </table>
-      </div>
-    </section>
+    <!-- =========================================================
+         2-कॉलम संरचना (स्क्रीन पर सामान्य, प्रिंट में साइड-बाय-साइड)
+         ========================================================= -->
+    <div class="print-two-columns">
 
-    <!-- 2. खर्च विवरण -->
-    <section id="sec-exp" class="hidden bg-white rounded-2xl shadow p-4 border border-orange-100">
-      <div class="overflow-x-auto">
-        <table class="w-full text-left text-xs sm:text-sm">
-          <thead>
-            <tr class="bg-red-50 text-red-950 border-b border-red-200">
-              <th class="py-2 px-3">क्र.</th>
-              <th class="py-2 px-3">खर्च मद (विवरण)</th>
-              <th class="py-2 px-3 text-right">राशि (₹)</th>
-            </tr>
-          </thead>
-          <tbody id="tbody-expenses" class="divide-y divide-gray-100"></tbody>
-        </table>
+      <!-- बायां कॉलम: दानदाता चंदा सूची (पेज 1 से शुरू होकर पेज 2 तक) -->
+      <div class="print-col-left">
+        <section id="sec-don" class="bg-white rounded-2xl shadow p-3 border border-orange-100 mb-3">
+          <div class="search-container relative mb-2">
+            <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
+            <input type="text" id="searchInput" oninput="filterRows(this.value)" placeholder="दानदाता का नाम खोजें..." class="w-full pl-8 pr-3 py-1.5 bg-gray-50 border border-gray-200 rounded-xl text-xs focus:bg-white focus:border-orange-400 outline-none" />
+          </div>
+          <div class="font-bold text-[11px] text-orange-950 mb-1 flex items-center gap-1">
+            <i class="fa-solid fa-hand-holding-dollar text-orange-600"></i> दानदाता चंदा सूची (किसने कितने रुपए दिए)
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left">
+              <thead>
+                <tr class="bg-orange-50 text-orange-950 border-b border-orange-200">
+                  <th class="py-0.5 px-1.5">क्र.</th>
+                  <th class="py-0.5 px-1.5">सहयोगी / चंदा दाता का नाम</th>
+                  <th class="py-0.5 px-1.5 text-right">राशि (₹)</th>
+                  <th class="py-0.5 px-1.5 text-center">स्थिति</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-donations" class="divide-y divide-gray-100"></tbody>
+            </table>
+          </div>
+        </section>
       </div>
-    </section>
 
-    <!-- 3. अवशेष बचत किसके पास है (सत्र-वार पारदर्शी सूची) -->
-    <section id="sec-prev" class="hidden bg-white rounded-2xl shadow p-4 border border-orange-100">
-      <div class="mb-3 p-2.5 bg-amber-50 rounded-xl border border-amber-200 text-xs text-amber-900 flex items-center gap-2">
-        <i class="fa-solid fa-info-circle text-amber-600 text-sm"></i>
-        <span>सत्र के आरंभ में कुल अवशेष कोष और धारकों (होली / दशहरा) का विवरण:</span>
-      </div>
-      <div class="overflow-x-auto">
-        <table class="w-full text-left text-xs sm:text-sm">
-          <thead>
-            <tr class="bg-amber-100/70 text-amber-950 border-b border-amber-200">
-              <th class="py-2 px-3">क्र.</th>
-              <th class="py-2 px-3">सत्र / पर्व</th>
-              <th class="py-2 px-3">धारक का नाम (किसके पास है)</th>
-              <th class="py-2 px-3 text-right">धनराशि (₹)</th>
-              <th class="py-2 px-3">टिप्पणी</th>
-            </tr>
-          </thead>
-          <tbody id="tbody-previous" class="divide-y divide-gray-100"></tbody>
-        </table>
-      </div>
-    </section>
+      <!-- दायां कॉलम: खर्च विवरण + अवशेष बचत (2026/27) + वस्तु/सेवा सहयोग -->
+      <div class="print-col-right">
 
-    <!-- 4. वस्तु/सेवा सहयोग -->
-    <section id="sec-ink" class="hidden bg-white rounded-2xl shadow p-4 border border-orange-100">
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5" id="box-inkind"></div>
-    </section>
+        <!-- 1. खर्च विवरण (पेज 1 पर समाप्त हो जाएगा) -->
+        <section id="sec-exp" class="hidden bg-white rounded-2xl shadow p-3 border border-orange-100 mb-3">
+          <div class="font-bold text-[11px] text-red-950 mb-1 flex items-center gap-1">
+            <i class="fa-solid fa-receipt text-red-600"></i> खर्च विवरण (कहाँ कितने खर्च हुए)
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left">
+              <thead>
+                <tr class="bg-red-50 text-red-950 border-b border-red-200">
+                  <th class="py-0.5 px-1.5">क्र.</th>
+                  <th class="py-0.5 px-1.5">खर्च मद (विवरण)</th>
+                  <th class="py-0.5 px-1.5 text-right">राशि (₹)</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-expenses" class="divide-y divide-gray-100"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 2. अवशेष बचत किसके पास है (पेज 2 के दाएं हिस्से में) -->
+        <section id="sec-prev" class="hidden bg-white rounded-2xl shadow p-3 border border-orange-100 mb-3">
+          <!-- 2A: आरंभिक अवशेष -->
+          <div class="mb-1.5 p-1 bg-amber-50 rounded border border-amber-200 text-xs text-amber-900 flex items-center justify-between">
+            <span class="font-bold flex items-center gap-1">
+              <i class="fa-solid fa-vault text-amber-600"></i> 1. सत्र के आरंभ में अवशेष कोष
+            </span>
+            <span class="text-[9px] text-amber-800 font-semibold">आरंभिक शेष</span>
+          </div>
+          <div class="overflow-x-auto mb-2">
+            <table class="w-full text-left">
+              <thead>
+                <tr class="bg-amber-100/70 text-amber-950 border-b border-amber-200">
+                  <th class="py-0.5 px-1.5">क्र.</th>
+                  <th class="py-0.5 px-1.5">सत्र / पर्व</th>
+                  <th class="py-0.5 px-1.5">धारक का नाम</th>
+                  <th class="py-0.5 px-1.5 text-right">धनराशि (₹)</th>
+                  <th class="py-0.5 px-1.5">टिप्पणी</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-previous" class="divide-y divide-gray-100"></tbody>
+            </table>
+          </div>
+
+          <!-- 2B: अंतिम शुद्ध शेष बचत (2027 डेटा से ऑटो-लिंक) -->
+          <div class="mb-1.5 p-1 bg-emerald-50 rounded border border-emerald-300 text-xs text-emerald-950 flex items-center justify-between">
+            <span class="font-bold flex items-center gap-1">
+              <i class="fa-solid fa-shield-halved text-emerald-600"></i> 2. अंतिम शुद्ध शेष कोष धारक (सत्र समाप्ति पर)
+            </span>
+            <span class="text-[9px] bg-emerald-200 text-emerald-900 font-bold px-1.5 py-0.2 rounded-full">आगामी सत्र में सुरक्षित</span>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left">
+              <thead>
+                <tr class="bg-emerald-100/70 text-emerald-950 border-b border-emerald-200">
+                  <th class="py-0.5 px-1.5">क्र.</th>
+                  <th class="py-0.5 px-1.5">सत्र / पर्व</th>
+                  <th class="py-0.5 px-1.5">धारक का नाम (वर्तमान में)</th>
+                  <th class="py-0.5 px-1.5 text-right">सुरक्षित धनराशि (₹)</th>
+                  <th class="py-0.5 px-1.5">टिप्पणी / विवरण</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-next-previous" class="divide-y divide-gray-100"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 3. वस्तु एवं सेवा सहयोग (1 क्षेत्र में 1 ही पूरा कार्ड, पेज 2 के खाली भाग को भरने हेतु) -->
+        <section id="sec-ink" class="hidden bg-white rounded-2xl shadow p-3 border border-orange-100 mb-3">
+          <div class="font-bold text-xs text-amber-950 mb-1.5 flex items-center justify-between border-b pb-1">
+            <span class="flex items-center gap-1">
+              <i class="fa-solid fa-wheat-awn text-orange-600"></i> वस्तु एवं सेवा सहयोग विवरण
+            </span>
+            <span class="text-[9.5px] text-gray-500 font-normal">सामग्री एवं सेवा भेंटकर्ता</span>
+          </div>
+          <div id="box-inkind"></div>
+        </section>
+
+      </div>
+
+    </div>
 
   </main>
 
   <script>
-    // 1. उल्टी गिनती घड़ी (20 अक्टूबर 2026 सायं 8:00 बजे)
-    var targetTimestamp = 1792506600000;
-    function startTimer() {
-      var diff = targetTimestamp - new Date().getTime();
-      if (diff > 0) {
+    // 1. घड़ी: 20 अक्टूबर 2026, 8:00 PM से आगे का बीता हुआ समय (Count-Up)
+    var eventTimestamp = new Date("2026-10-20T20:00:00+05:30").getTime();
+
+    function updateTimer() {
+      var now = new Date().getTime();
+      var diff = now - eventTimestamp; // आगे की ओर गणना
+
+      if (diff >= 0) {
+        // कार्यक्रम बीत चुका है -> समय आगे बढ़ रहा है
         var d = Math.floor(diff / (1000 * 60 * 60 * 24));
         var h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         var m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
@@ -205,15 +430,27 @@
         document.getElementById("cd-hours").textContent = (h < 10 ? "0" : "") + h;
         document.getElementById("cd-mins").textContent = (m < 10 ? "0" : "") + m;
         document.getElementById("cd-secs").textContent = (s < 10 ? "0" : "") + s;
+
+        var statusText = document.getElementById("timer-status-text");
+        if (statusText) {
+          statusText.innerHTML = "🚩 जागरण एवं रावण दहन संपन्न हुए बीत चुका समय:";
+        }
       } else {
-        document.getElementById("cd-days").textContent = "00";
-        document.getElementById("cd-hours").textContent = "00";
-        document.getElementById("cd-mins").textContent = "00";
-        document.getElementById("cd-secs").textContent = "00";
+        // यदि कोई भविष्य का सत्र हो तो उल्टी गिनती
+        var rem = Math.abs(diff);
+        var rd = Math.floor(rem / (1000 * 60 * 60 * 24));
+        var rh = Math.floor((rem % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var rm = Math.floor((rem % (1000 * 60 * 60)) / (1000 * 60));
+        var rs = Math.floor((rem % (1000 * 60)) / 1000);
+
+        document.getElementById("cd-days").textContent = (rd < 10 ? "0" : "") + rd;
+        document.getElementById("cd-hours").textContent = (rh < 10 ? "0" : "") + rh;
+        document.getElementById("cd-mins").textContent = (rm < 10 ? "0" : "") + rm;
+        document.getElementById("cd-secs").textContent = (rs < 10 ? "0" : "") + rs;
       }
     }
-    setInterval(startTimer, 1000);
-    startTimer();
+    setInterval(updateTimer, 1000);
+    updateTimer();
 
     // 2. मास्टर डेटा स्ट्रक्चर (2024 से 2035)
     var store = {};
@@ -221,8 +458,7 @@
       store[String(yr)] = { prev: 0, prevList: [], don: [], exp: [], ink: [] };
     }
 
-    // 2025 का इनबिल्ट सुरक्षित डेटा
-    // 2025 का इनबिल्ट सुरक्षित डेटा
+    // 2025 इनबिल्ट डेटा
     store["2025"].prev = 5765;
     store["2025"].prevList = [
       ["दशहरा 2024", "Deepu", 4228, "होली और दशहरा 2024 का अवशेष"],
@@ -287,12 +523,14 @@
       ["सुशील", "2 लीटर शुद्ध दूध सहयोग"]
     ];
 
-    // 2026 का आरंभिक अवशेष (गूगल शीट से नया डेटा आने पर भी यह सुरक्षित रहेगा)
+    // 2026 आरंभिक अवशेष
     store["2026"].prev = 20283;
 
     var currentYear = "2026";
+    var activeTab = "sec-don";
+    var activeBtn = "btn-don";
 
-    // 3. स्क्रीन रेंडरर
+    // 3. स्क्रीन एवं प्रिंट रेंडरर
     function render() {
       var d = store[currentYear] || { prev: 0, prevList: [], don: [], exp: [], ink: [] };
       var totDon = 0;
@@ -300,6 +538,9 @@
       var totExp = 0;
       for (var j = 0; j < d.exp.length; j++) totExp += Number(d.exp[j][1]);
       var net = (Number(d.prev) + totDon) - totExp;
+
+      var py = document.getElementById("printYearDisplay");
+      if (py) py.textContent = "सत्र " + currentYear;
 
       document.getElementById("stat-prev").textContent = "₹" + Number(d.prev).toLocaleString("en-IN");
       document.getElementById("stat-donations").textContent = "₹" + totDon.toLocaleString("en-IN");
@@ -312,15 +553,15 @@
       var donBody = document.getElementById("tbody-donations");
       donBody.innerHTML = "";
       if (d.don.length === 0) {
-        donBody.innerHTML = '<tr><td colspan="4" class="py-8 text-center text-gray-400 font-medium">सत्र ' + currentYear + ' में अभी कोई चंदा दर्ज नहीं हुआ है।</td></tr>';
+        donBody.innerHTML = '<tr><td colspan="4" class="py-2 text-center text-gray-400 font-medium">सत्र ' + currentYear + ' में अभी कोई चंदा दर्ज नहीं हुआ है।</td></tr>';
       } else {
         for (var k = 0; k < d.don.length; k++) {
           var tr = document.createElement("tr");
           tr.className = "hover:bg-orange-50/50 tr-don";
-          tr.innerHTML = '<td class="py-2.5 px-3 text-gray-400 font-mono">' + (k + 1) + '</td>' +
-            '<td class="py-2.5 px-3 font-semibold text-gray-800 name-don">' + d.don[k][0] + '</td>' +
-            '<td class="py-2.5 px-3 text-right font-bold text-emerald-700">₹' + Number(d.don[k][1]).toLocaleString("en-IN") + '</td>' +
-            '<td class="py-2.5 px-3 text-center"><span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-full">प्राप्त</span></td>';
+          tr.innerHTML = '<td class="py-0.5 px-1.5 text-gray-400 font-mono">' + (k + 1) + '</td>' +
+            '<td class="py-0.5 px-1.5 font-semibold text-gray-800 name-don">' + d.don[k][0] + '</td>' +
+            '<td class="py-0.5 px-1.5 text-right font-bold text-emerald-700">₹' + Number(d.don[k][1]).toLocaleString("en-IN") + '</td>' +
+            '<td class="py-0.5 px-1.5 text-center"><span class="bg-emerald-100 text-emerald-800 text-[8px] font-bold px-1 rounded-full">प्राप्त</span></td>';
           donBody.appendChild(tr);
         }
       }
@@ -329,48 +570,72 @@
       var expBody = document.getElementById("tbody-expenses");
       expBody.innerHTML = "";
       if (d.exp.length === 0) {
-        expBody.innerHTML = '<tr><td colspan="3" class="py-8 text-center text-gray-400 font-medium">सत्र ' + currentYear + ' में अभी कोई खर्च दर्ज नहीं हुआ है।</td></tr>';
+        expBody.innerHTML = '<tr><td colspan="3" class="py-2 text-center text-gray-400 font-medium">सत्र ' + currentYear + ' में अभी कोई खर्च दर्ज नहीं हुआ है।</td></tr>';
       } else {
         for (var m = 0; m < d.exp.length; m++) {
           var trExp = document.createElement("tr");
           trExp.className = "hover:bg-red-50/50";
-          trExp.innerHTML = '<td class="py-2.5 px-3 text-gray-400 font-mono">' + (m + 1) + '</td>' +
-            '<td class="py-2.5 px-3 text-gray-800 font-medium">' + d.exp[m][0] + '</td>' +
-            '<td class="py-2.5 px-3 text-right font-bold text-red-600">₹' + Number(d.exp[m][1]).toLocaleString("en-IN") + '</td>';
+          trExp.innerHTML = '<td class="py-0.5 px-1.5 text-gray-400 font-mono">' + (m + 1) + '</td>' +
+            '<td class="py-0.5 px-1.5 text-gray-800 font-medium">' + d.exp[m][0] + '</td>' +
+            '<td class="py-0.5 px-1.5 text-right font-bold text-red-600">₹' + Number(d.exp[m][1]).toLocaleString("en-IN") + '</td>';
           expBody.appendChild(trExp);
         }
       }
 
-      // 3. पिछला अवशेष तालिका (किसके पास कितना है)
+      // 3A. आरंभिक अवशेष तालिका
       var prevBody = document.getElementById("tbody-previous");
       prevBody.innerHTML = "";
       if (!d.prevList || d.prevList.length === 0) {
-        prevBody.innerHTML = '<tr><td colspan="5" class="py-8 text-center text-gray-400 font-medium">सत्र ' + currentYear + ' में कुल अवशेष राशि ₹' + Number(d.prev).toLocaleString("en-IN") + ' है। (अलग मद विवरण दर्ज नहीं है)</td></tr>';
+        prevBody.innerHTML = '<tr><td colspan="5" class="py-1 text-center text-gray-400 font-medium">सत्र ' + currentYear + ' में कुल आरंभिक अवशेष ₹' + Number(d.prev).toLocaleString("en-IN") + ' दर्ज है।</td></tr>';
       } else {
         for (var p = 0; p < d.prevList.length; p++) {
           var trP = document.createElement("tr");
           trP.className = "hover:bg-amber-50/50";
-          trP.innerHTML = '<td class="py-2.5 px-3 text-gray-400 font-mono">' + (p + 1) + '</td>' +
-            '<td class="py-2.5 px-3 font-semibold text-gray-800">' + d.prevList[p][0] + '</td>' +
-            '<td class="py-2.5 px-3 text-blue-700 font-bold">' + (d.prevList[p][1] || "—") + '</td>' +
-            '<td class="py-2.5 px-3 text-right font-bold text-amber-700">₹' + Number(d.prevList[p][2]).toLocaleString("en-IN") + '</td>' +
-            '<td class="py-2.5 px-3 text-gray-500 text-xs">' + (d.prevList[p][3] || "—") + '</td>';
+          trP.innerHTML = '<td class="py-0.5 px-1.5 text-gray-400 font-mono">' + (p + 1) + '</td>' +
+            '<td class="py-0.5 px-1.5 font-semibold text-gray-800">' + d.prevList[p][0] + '</td>' +
+            '<td class="py-0.5 px-1.5 text-blue-700 font-bold">' + (d.prevList[p][1] || "—") + '</td>' +
+            '<td class="py-0.5 px-1.5 text-right font-bold text-amber-700">₹' + Number(d.prevList[p][2]).toLocaleString("en-IN") + '</td>' +
+            '<td class="py-0.5 px-1.5 text-gray-500 text-[9.5px]">' + (d.prevList[p][3] || "—") + '</td>';
           prevBody.appendChild(trP);
         }
       }
 
-      // 4. वस्तु/सेवा कार्ड्स
+      // 3B. सत्र समाप्ति पर अंतिम शुद्ध बचत धारक (2027 डेटा से ऑटो-लिंक)
+      var nextYr = String(Number(currentYear) + 1);
+      var nextD = store[nextYr] || { prevList: [] };
+      var nextPrevBody = document.getElementById("tbody-next-previous");
+      if (nextPrevBody) {
+        nextPrevBody.innerHTML = "";
+        if (nextD.prevList && nextD.prevList.length > 0) {
+          for (var np = 0; np < nextD.prevList.length; np++) {
+            var trNP = document.createElement("tr");
+            trNP.className = "hover:bg-emerald-50/50 bg-emerald-50/20";
+            trNP.innerHTML = '<td class="py-0.5 px-1.5 text-gray-400 font-mono">' + (np + 1) + '</td>' +
+              '<td class="py-0.5 px-1.5 font-semibold text-gray-800">' + nextD.prevList[np][0] + '</td>' +
+              '<td class="py-0.5 px-1.5 text-blue-700 font-bold">' + (nextD.prevList[np][1] || "—") + '</td>' +
+              '<td class="py-0.5 px-1.5 text-right font-bold text-emerald-700">₹' + Number(nextD.prevList[np][2]).toLocaleString("en-IN") + '</td>' +
+              '<td class="py-0.5 px-1.5 text-gray-600 text-[9.5px]">' + (nextD.prevList[np][3] || "सत्र " + currentYear + " की शुद्ध शेष बचत") + '</td>';
+            nextPrevBody.appendChild(trNP);
+          }
+        } else {
+          nextPrevBody.innerHTML = '<tr><td colspan="5" class="py-1 text-center text-gray-500 text-[10px]">सत्र ' + currentYear + ' की कुल शुद्ध शेष बचत <b>₹' + net.toLocaleString("en-IN") + '</b> आगामी सत्र ' + nextYr + ' के लिए सुरक्षित रखी गई है।</td></tr>';
+        }
+      }
+
+      // 4. वस्तु/सेवा कार्ड्स (1 क्षेत्र में 1 ही पूरा कार्ड, ताकि पेज 2 का खालीपन समाप्त हो)
       var inBox = document.getElementById("box-inkind");
       inBox.innerHTML = "";
       if (d.ink.length === 0) {
-        inBox.innerHTML = '<div class="col-span-2 text-center text-gray-400 py-8 font-medium">सत्र ' + currentYear + ' में अभी कोई वस्तु/सेवा सहयोग दर्ज नहीं है।</div>';
+        inBox.innerHTML = '<div class="text-center text-gray-400 py-2 font-medium">सत्र ' + currentYear + ' में अभी कोई वस्तु/सेवा सहयोग दर्ज नहीं है।</div>';
       } else {
         for (var n = 0; n < d.ink.length; n++) {
           var div = document.createElement("div");
-          div.className = "bg-amber-50/60 border border-amber-200 rounded-xl p-3 flex items-start gap-2.5";
-          div.innerHTML = '<div class="bg-amber-200 text-amber-900 rounded-full w-6 h-6 flex items-center justify-center font-bold text-xs shrink-0">' + (n + 1) + '</div>' +
-            '<div><div class="font-bold text-gray-900 text-xs sm:text-sm">' + d.ink[n][0] + '</div>' +
-            '<div class="text-[11px] sm:text-xs text-gray-600 mt-0.5">' + d.ink[n][1] + '</div></div>';
+          div.className = "bg-amber-50 border border-amber-200 rounded p-1.5 flex items-start gap-2 shadow-xs";
+          div.innerHTML = '<div class="bg-amber-400 text-amber-950 rounded-full w-4 h-4 flex items-center justify-center font-bold text-[9px] shrink-0 mt-0.5">' + (n + 1) + '</div>' +
+            '<div class="flex-1">' +
+              '<div class="font-bold text-gray-900 text-[11px] leading-tight">' + d.ink[n][0] + '</div>' +
+              '<div class="text-[10px] text-gray-700 font-medium mt-0.5 leading-snug">' + d.ink[n][1] + '</div>' +
+            '</div>';
           inBox.appendChild(div);
         }
       }
@@ -395,6 +660,8 @@
     }
 
     function showSection(secId, btnId) {
+      activeTab = secId;
+      activeBtn = btnId;
       var secs = ["sec-don", "sec-exp", "sec-prev", "sec-ink"];
       var btns = ["btn-don", "btn-exp", "btn-prev", "btn-ink"];
       for (var i = 0; i < secs.length; i++) {
@@ -407,7 +674,29 @@
       document.getElementById(btnId).classList.remove("text-gray-500");
     }
 
-    // Google Sheet ऑटो-सिंक (चारों शीट्स)
+    function triggerPrint() {
+      document.getElementById("sec-don").classList.remove("hidden");
+      document.getElementById("sec-exp").classList.remove("hidden");
+      document.getElementById("sec-prev").classList.remove("hidden");
+      document.getElementById("sec-ink").classList.remove("hidden");
+      
+      setTimeout(function() {
+        window.print();
+      }, 50);
+    }
+
+    window.addEventListener("afterprint", function() {
+      showSection(activeTab, activeBtn);
+    });
+
+    window.addEventListener("beforeprint", function() {
+      document.getElementById("sec-don").classList.remove("hidden");
+      document.getElementById("sec-exp").classList.remove("hidden");
+      document.getElementById("sec-prev").classList.remove("hidden");
+      document.getElementById("sec-ink").classList.remove("hidden");
+    });
+
+    // Google Sheet ऑटो-सिंक
     var SHEET_ID = "1gWtnX3JFPxNuIsEMuwxR9xWLRUjDWWHN88mBL7xaUTE";
     function loadTab(tabName, cb) {
       var sc = document.createElement("script");
@@ -422,7 +711,6 @@
     }
 
     setTimeout(function() {
-      // 1. पिछला अवशेष फेच करना (सत्र-वार और धारक-वार)
       loadTab("पिछला_अवशेष", function(rows) {
         var yearTotals = {};
         for (var y = 2026; y <= 2035; y++) {
@@ -457,7 +745,6 @@
         render();
       });
 
-      // 2. चंदा संग्रह
       loadTab("चंदा_संग्रह", function(rows) {
         for (var y = 2026; y <= 2035; y++) store[String(y)].don = [];
         for (var i = 0; i < rows.length; i++) {
@@ -473,7 +760,6 @@
         render();
       });
 
-      // 3. खर्च विवरण
       loadTab("खर्च_विवरण", function(rows) {
         for (var y = 2026; y <= 2035; y++) store[String(y)].exp = [];
         for (var i = 0; i < rows.length; i++) {
@@ -489,7 +775,6 @@
         render();
       });
 
-      // 4. वस्तु/सेवा सहयोग
       loadTab("वस्तु_सेवा_सहयोग", function(rows) {
         for (var y = 2026; y <= 2035; y++) store[String(y)].ink = [];
         for (var i = 0; i < rows.length; i++) {
