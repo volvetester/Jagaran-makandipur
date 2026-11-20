@@ -632,14 +632,11 @@
       ["सुशील", "2 लीटर शुद्ध दूध सहयोग"]
     ];
 
-    // ---- सत्र 2026 ----
-    // 2026 का आरंभिक अवशेष = 2025 में बचा हुआ पैसा (₹20,283 = 5,765 + 14,518)
+    // ---- सत्र 2026 (डिफ़ॉल्ट फॉलबैक, लाइव शीट से अपडेट होता है) ----
     store["2026"].prev = 20283;
     store["2026"].prevList = [
-      ["दशहरा 2024", "Deepu", 4228, "होली और दशहरा 2024 का अवशेष"],
-      ["दशहरा 2024", "Deepak", 1000, "दशहरा 2024 का अवशेष"],
-      ["होली 2025", "Deepu", 537, "होली 2025 का अवशेष"],
-      ["दशहरा 2025", "Deepak", 14518, "दशहरा 2025 का अवशेष"]
+      ["दशहरा 2026", "दीपक", 16705, "पिछले सत्र 2025 का अवशेष"],
+      ["दशहरा 2026", "दीपू", 3578, "पिछले सत्र 2025 का अवशेष"]
     ];
 
     // ---------- 3. स्थिति ----------
@@ -852,7 +849,6 @@
     }
 
     // ---------- 5-क. छपाई टिप्पणी ----------
-    // टिप्पणी को textContent से डाला जाता है, इसलिए कुछ भी पेस्ट करें, सुरक्षित रहेगा।
     function applyNote() {
       var t = String(noteText).trim();
       document.getElementById("print-note-text").textContent = t;
@@ -888,7 +884,6 @@
     function triggerPrint() { window.print(); }
 
     window.addEventListener("beforeprint", function () {
-      // प्रिंट में हमेशा पूरी सूची आए (खोज/क्रम का असर नहीं)
       savedQ = searchQ; savedSort = donSort;
       searchQ = ""; donSort = "order";
       document.getElementById("printDate").textContent = new Date().toLocaleDateString("en-IN");
@@ -924,9 +919,8 @@
     setTimeout(function () {
 
       // ---- पिछला अवशेष ----
-      // नियम: जिस पर्व/वर्ष का अवशेष है, वह अगले सत्र का आरंभिक अवशेष बनता है
-      // (दशहरा 2025 -> सत्र 2026, दशहरा 2026 -> सत्र 2027 ...)।
-      // 2026 से पहले का सब कुछ सत्र 2026 में जाता है। 2024/2025 का इनबिल्ट डेटा नहीं बदलता।
+      // नियम: शीट के 'सत्र / मद' कॉलम में दर्ज वर्ष (जैसे 'दशहरा 2026', 'दशहरा 2027')
+      // सीधे उसी सत्र का आरंभिक अवशेष है (2026 या उसके बाद के सत्रों के लिए)।
       loadTab("पिछला_अवशेष", function (rows) {
         var fresh = {}, totals = {};
         for (var i = 0; i < rows.length; i++) {
@@ -934,13 +928,16 @@
           if (!c) continue;
           var item = c[0] ? String(c[0].v || c[0].f).trim() : "";
           var holder = c[1] ? String(c[1].v || c[1].f).trim() : "";
-          var amt = c[2] ? parseFloat(c[2].v) : 0;
+          var amt = c[2] ? parseFloat(String(c[2].v).replace(/[^\d.-]/g, "")) : 0;
           var note = c[3] ? String(c[3].v || c[3].f).trim() : "";
           if (item === "कुल योग" || isNaN(amt) || amt <= 0) continue;
 
           var mt = item.match(/\d{4}/);
           if (!mt) continue;
-          var target = String(Math.max(Number(mt[0]) + 1, 2026));
+          var yrNum = Number(mt[0]);
+          if (yrNum < 2026) continue;
+
+          var target = String(yrNum);
           if (!store[target]) continue;
 
           if (!fresh[target]) fresh[target] = [];
