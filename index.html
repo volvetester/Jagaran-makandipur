@@ -148,7 +148,7 @@
     .print-only { display: none; }
 
     /* =========================================================
-       प्रिंट लेआउट - A4, ठीक 2 पेज (रंगीन)
+       प्रिंट लेआउट - A4, ठीक 2 पेज (संतुलित और साफ कलर कॉम्बिनेशन)
        पेज 1 : शीर्षक + सारांश + चंदा सूची (3 कॉलम)
        पेज 2 : खर्च (बायाँ) + अवशेष, वस्तु सहयोग व टिप्पणी (दायाँ)
        ========================================================= */
@@ -157,7 +157,7 @@
     @media print {
       html, body {
         background: #fff !important;
-        color: #000 !important;
+        color: #1f2937 !important;
         padding: 0 !important;
         margin: 0 !important;
         font-size: 8pt !important;
@@ -168,133 +168,147 @@
       .no-print, #bottom-nav, .timer-line { display: none !important; }
       .print-only { display: block !important; }
 
-      /* रंगीन शीर्षक पट्टी */
+      /* सौम्य भगवा-क्रीम शीर्षक पट्टी (बिना भारी स्याही के) */
       header {
-        background: linear-gradient(90deg, #b45309 0%, #ea580c 50%, #dc2626 100%) !important;
-        color: #fff !important;
+        background: #fff7ed !important;
+        color: #7c2d12 !important;
         box-shadow: none !important;
-        padding: 4px 6px 5px 6px !important;
-        margin: 0 0 5px 0 !important;
-        border-bottom: 3px solid #fbbf24;
+        padding: 5px 8px 6px 8px !important;
+        margin: 0 0 6px 0 !important;
+        border: 1px solid #fed7aa !important;
+        border-top: 3.5px solid #ea580c !important;
+        border-bottom: 2px solid #f59e0b !important;
         border-radius: 6px !important;
       }
       header .badge-top {
         display: inline-block !important;
-        background: #fbbf24 !important;
-        color: #7f1d1d !important;
+        background: #fef3c7 !important;
+        color: #92400e !important;
+        border: 1px solid #f59e0b !important;
         font-size: 7pt !important;
-        padding: 0 8px !important;
+        padding: 0 9px !important;
         margin: 0 0 2px 0 !important;
         border-radius: 999px !important;
         box-shadow: none !important;
       }
       header h1 {
         font-size: 15pt !important; line-height: 1.2 !important;
-        color: #fff !important; margin: 0 !important; text-shadow: none !important;
+        color: #9a3412 !important; margin: 0 !important; text-shadow: none !important;
       }
-      header p { font-size: 8.5pt !important; color: #ffedd5 !important; margin: 0 !important; }
+      header p { font-size: 8.5pt !important; color: #78350f !important; margin: 1px 0 0 0 !important; }
 
       main { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
 
-      /* सारांश - हर कार्ड अलग रंग */
+      /* सारांश - हल्का टिंट और साफ रंगीन बाईं पट्टी */
       #summary {
         display: grid !important;
         grid-template-columns: repeat(4, 1fr) !important;
-        gap: 4px !important;
-        margin: 0 0 5px 0 !important;
+        gap: 5px !important;
+        margin: 0 0 6px 0 !important;
       }
       #summary .card {
         border-radius: 5px !important;
-        padding: 2px 5px !important;
+        padding: 3px 6px !important;
         box-shadow: none !important;
       }
-      #summary .card:nth-child(1) { background: #fef3c7 !important; border: 1.5px solid #f59e0b !important; border-left: 5px solid #d97706 !important; }
-      #summary .card:nth-child(2) { background: #d1fae5 !important; border: 1.5px solid #10b981 !important; border-left: 5px solid #059669 !important; }
-      #summary .card:nth-child(3) { background: #fee2e2 !important; border: 1.5px solid #ef4444 !important; border-left: 5px solid #dc2626 !important; }
-      #summary .card:nth-child(4) { background: #dbeafe !important; border: 1.5px solid #3b82f6 !important; border-left: 5px solid #1d4ed8 !important; }
-      #summary .card .t { font-size: 7pt !important; }
+      #summary .card:nth-child(1) { background: #fffbeb !important; border: 1px solid #fde68a !important; border-left: 4px solid #d97706 !important; }
+      #summary .card:nth-child(2) { background: #ecfdf5 !important; border: 1px solid #a7f3d0 !important; border-left: 4px solid #059669 !important; }
+      #summary .card:nth-child(3) { background: #fef2f2 !important; border: 1px solid #fecaca !important; border-left: 4px solid #dc2626 !important; }
+      #summary .card:nth-child(4) { background: #eff6ff !important; border: 1px solid #bfdbfe !important; border-left: 4px solid #2563eb !important; }
+      #summary .card .t { font-size: 7pt !important; color: #4b5563 !important; }
       #summary .card .v { font-size: 12pt !important; line-height: 1.15 !important; }
+      #summary .card:nth-child(1) .v { color: #b45309 !important; }
+      #summary .card:nth-child(2) .v { color: #047857 !important; }
+      #summary .card:nth-child(3) .v { color: #b91c1c !important; }
+      #summary .card:nth-child(4) .v { color: #1d4ed8 !important; }
       #summary .card .s { display: none !important; }
 
+      /* सेक्शन बॉक्स - साफ सफेद बैकग्राउंड और हल्का बॉर्डर */
       .tab-sec {
         display: block !important;
+        background: #ffffff !important;
         box-shadow: none !important;
         border-radius: 5px !important;
         padding: 4px 6px !important;
         margin: 0 0 5px 0 !important;
       }
-      #sec-don  { background: #fffaf0 !important; border: 1.5px solid #fb923c !important; }
-      #sec-exp  { background: #fff7f7 !important; border: 1.5px solid #f87171 !important; }
-      #sec-prev { background: #fffdf2 !important; border: 1.5px solid #f59e0b !important; }
-      #sec-ink  { background: #faf5ff !important; border: 1.5px solid #a78bfa !important; }
+      #sec-don  { border: 1px solid #fdba74 !important; }
+      #sec-exp  { border: 1px solid #fca5a5 !important; }
+      #sec-prev { border: 1px solid #fcd34d !important; }
+      #sec-ink  { border: 1px solid #ddd6fe !important; }
 
-      /* रंगीन सेक्शन शीर्षक पट्टी */
+      /* सेक्शन शीर्षक पट्टी - पेस्टल टिंट + रंगीन बायाँ एक्सेंट */
       .sec-title {
         font-size: 9pt !important;
-        margin-bottom: 3px !important;
-        padding: 2px 6px !important;
+        margin-bottom: 4px !important;
+        padding: 2.5px 6px !important;
         border-radius: 4px !important;
-        color: #fff !important;
       }
-      .sec-title, .sec-title * { color: #fff !important; }
-      #sec-don  .sec-title { background: linear-gradient(90deg, #ea580c, #f59e0b) !important; }
-      #sec-exp  .sec-title { background: linear-gradient(90deg, #dc2626, #f43f5e) !important; }
-      #sec-prev .sec-title { background: linear-gradient(90deg, #d97706, #eab308) !important; }
-      #sec-ink  .sec-title { background: linear-gradient(90deg, #7c3aed, #c026d3) !important; }
+      .sec-title span { color: #6b7280 !important; }
+      #sec-don  .sec-title { background: #ffedd5 !important; border-left: 4px solid #ea580c !important; color: #9a3412 !important; }
+      #sec-don  .sec-title i { color: #ea580c !important; }
+      #sec-exp  .sec-title { background: #fee2e2 !important; border-left: 4px solid #dc2626 !important; color: #991b1b !important; }
+      #sec-exp  .sec-title i { color: #dc2626 !important; }
+      #sec-prev .sec-title { background: #fef3c7 !important; border-left: 4px solid #d97706 !important; color: #92400e !important; }
+      #sec-prev .sec-title i { color: #d97706 !important; }
+      #sec-ink  .sec-title { background: #f3e8ff !important; border-left: 4px solid #7c3aed !important; color: #5b21b6 !important; }
+      #sec-ink  .sec-title i { color: #7c3aed !important; }
 
-      .sub-title { font-size: 7.5pt !important; padding: 2px 5px !important; margin: 5px 0 3px !important; border-radius: 4px !important; }
-      .sub-title.bg-amber-50 { background: #fcd34d !important; border-color: #d97706 !important; }
-      .sub-title.bg-emerald-50 { background: #6ee7b7 !important; border-color: #059669 !important; }
+      .sub-title { font-size: 7.5pt !important; padding: 2px 6px !important; margin: 5px 0 3px !important; border-radius: 4px !important; }
+      .sub-title.bg-amber-50 { background: #fef9c3 !important; border: 1px solid #fde047 !important; border-left: 3px solid #ca8a04 !important; color: #854d0e !important; }
+      .sub-title.bg-emerald-50 { background: #dcfce7 !important; border: 1px solid #86efac !important; border-left: 3px solid #16a34a !important; color: #166534 !important; }
 
       /* चंदा सूची - 3 कॉलम */
       #don-list {
         column-count: 3;
         column-gap: 8px;
-        column-rule: 1px solid #fdba74;
+        column-rule: 1px solid #fed7aa;
       }
       .row {
         grid-template-columns: 18px 1fr auto !important;
         gap: 3px !important;
-        padding: 1.3px 2px !important;
+        padding: 1.4px 3px !important;
         font-size: 7.4pt !important;
         line-height: 1.15 !important;
-        border-bottom: 0.5px solid #e2e8f0 !important;
+        color: #1f2937 !important;
         break-inside: avoid;
         page-break-inside: avoid;
       }
       .row .no { font-size: 6.5pt !important; color: #6b7280 !important; }
       .row .nm { font-weight: 600 !important; }
-      .row .note { font-size: 6.3pt !important; margin: 0 !important; }
+      .row .note { font-size: 6.3pt !important; color: #6b7280 !important; margin: 0 !important; }
       .row.head { display: none !important; }
 
-      /* पंक्तियों की धारियाँ (हर सेक्शन का अपना रंग) */
+      /* बेहद हल्की और आँखों को सुकून देने वाली धारीदार पंक्तियाँ */
       #don-list .row:nth-child(odd)  { background: #ffffff !important; }
-      #don-list .row:nth-child(even) { background: #ffedd5 !important; }
+      #don-list .row:nth-child(even) { background: #fffaf5 !important; }
       #exp-list .row:nth-child(odd)  { background: #ffffff !important; }
-      #exp-list .row:nth-child(even) { background: #fee2e2 !important; }
+      #exp-list .row:nth-child(even) { background: #fff8f8 !important; }
       #prev-list .row:nth-child(odd), #next-list .row:nth-child(odd) { background: #ffffff !important; }
-      #prev-list .row:nth-child(even), #next-list .row:nth-child(even) { background: #fef3c7 !important; }
+      #prev-list .row:nth-child(even), #next-list .row:nth-child(even) { background: #fffdf5 !important; }
 
-      #don-list .row { border-bottom: 0.5px solid #fdba74 !important; }
-      #exp-list .row { border-bottom: 0.5px solid #fca5a5 !important; }
-      #prev-list .row, #next-list .row { border-bottom: 0.5px solid #fcd34d !important; }
+      #don-list .row { border-bottom: 0.5px solid #fed7aa !important; }
+      #exp-list .row { border-bottom: 0.5px solid #fecaca !important; }
+      #prev-list .row, #next-list .row { border-bottom: 0.5px solid #fde68a !important; }
 
       #don-list .amt { color: #047857 !important; }
       #exp-list .amt { color: #b91c1c !important; }
 
-      /* कुल योग की रंगीन पट्टियाँ */
+      /* कुल योग की संतुलित रंगीन पट्टियाँ */
       .row.total {
-        font-size: 8.5pt !important;
-        padding: 2px 4px !important;
-        color: #fff !important;
-        border-top: none !important;
-        border-radius: 3px !important;
+        font-size: 8.4pt !important;
+        padding: 2.5px 5px !important;
+        border-radius: 4px !important;
+        margin-top: 2px !important;
       }
-      .row.total .amt, .row.total div { color: #fff !important; }
-      #don-total .row.total  { background: #059669 !important; }
-      #exp-total .row.total  { background: #dc2626 !important; }
-      #prev-total .row.total { background: #d97706 !important; }
-      #next-list .row.total  { background: #059669 !important; }
+      #don-total .row.total  { background: #d1fae5 !important; border-top: 1.5px solid #059669 !important; color: #065f46 !important; }
+      #don-total .row.total .amt { color: #047857 !important; }
+      #exp-total .row.total  { background: #fee2e2 !important; border-top: 1.5px solid #dc2626 !important; color: #991b1b !important; }
+      #exp-total .row.total .amt { color: #b91c1c !important; }
+      #prev-total .row.total { background: #fef3c7 !important; border-top: 1.5px solid #d97706 !important; color: #92400e !important; }
+      #prev-total .row.total .amt { color: #b45309 !important; }
+      #next-list .row.total  { background: #d1fae5 !important; border-top: 1.5px solid #059669 !important; color: #065f46 !important; }
+      #next-list .row.total .amt { color: #047857 !important; }
 
       #page2 {
         break-before: page;
@@ -308,20 +322,20 @@
 
       /* वस्तु / सेवा कार्ड */
       .ink-card {
-        padding: 2px 4px !important;
-        margin-bottom: 2px !important;
+        padding: 2.5px 5px !important;
+        margin-bottom: 2.5px !important;
         font-size: 7pt !important;
-        border-radius: 3px !important;
+        border-radius: 4px !important;
         break-inside: avoid;
-        background: #ede9fe !important;
-        border: 1px solid #c4b5fd !important;
+        background: #faf5ff !important;
+        border: 1px solid #e9d5ff !important;
       }
       .ink-card .badge { width: 12px !important; height: 12px !important; font-size: 6pt !important; background: #7c3aed !important; color: #fff !important; }
 
       /* छपाई टिप्पणी (प्रिंट में) */
       #print-note {
         background: #f0fdfa !important;
-        border: 1.5px solid #0d9488 !important;
+        border: 1px solid #99f6e4 !important;
         border-radius: 5px !important;
         padding: 4px 6px !important;
         margin: 0 0 5px 0 !important;
@@ -329,16 +343,17 @@
       }
       #print-note.is-empty { display: none !important; }
       #print-note .pn-title {
-        background: linear-gradient(90deg, #0d9488, #06b6d4) !important;
-        color: #fff !important;
+        background: #ccfbf1 !important;
+        border-left: 4px solid #0d9488 !important;
+        color: #115e59 !important;
         font-weight: 800;
-        font-size: 9pt;
+        font-size: 8.5pt;
         padding: 2px 6px;
         border-radius: 4px;
         margin-bottom: 3px;
       }
       #print-note-text {
-        font-size: 8.5pt;
+        font-size: 8pt;
         line-height: 1.35;
         color: #134e4a !important;
         white-space: pre-wrap;
@@ -347,10 +362,10 @@
 
       .print-foot {
         font-size: 6.5pt;
-        color: #9a3412 !important;
+        color: #6b7280 !important;
         text-align: right;
         margin-top: 4px;
-        border-top: 1.5px solid #fb923c;
+        border-top: 1px solid #fdba74;
         padding-top: 2px;
       }
     }
