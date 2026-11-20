@@ -148,16 +148,17 @@
     .print-only { display: none; }
 
     /* =========================================================
-       प्रिंट लेआउट - A4, ठीक 2 पेज (वैज्ञानिक बोल्ड-हल्का संतुलन)
-       पेज 1 : शीर्षक (बोल्ड) + सारांश (हल्का) + चंदा सूची (बोल्ड हेडर/योग, हल्की पंक्तियाँ)
+       प्रिंट लेआउट - A4, ठीक 2 पेज
+       पेज 1 : शीर्षक + सारांश + चंदा सूची (3 कॉलम)
        पेज 2 : खर्च (बायाँ) + अवशेष, वस्तु सहयोग व टिप्पणी (दायाँ)
+       रंग-संयोजन : क्रीम + मरून + केसरिया + सुनहरा
        ========================================================= */
     @page { size: A4 portrait; margin: 6mm; }
 
     @media print {
       html, body {
         background: #fff !important;
-        color: #111827 !important;
+        color: #1f2937 !important;
         padding: 0 !important;
         margin: 0 !important;
         font-size: 8pt !important;
@@ -168,20 +169,22 @@
       .no-print, #bottom-nav, .timer-line { display: none !important; }
       .print-only { display: block !important; }
 
-      /* [10% बोल्ड एंकर] मुख्य शीर्षक पट्टी : गहरा शाही केसरिया-क्रिमसन */
       header {
-        background: linear-gradient(135deg, #9a3412 0%, #c2410c 55%, #991b1b 100%) !important;
-        color: #fff !important;
+        background: #fffaf0 !important;
+        color: #7f1d1d !important;
         box-shadow: none !important;
         padding: 5px 8px 6px 8px !important;
         margin: 0 0 6px 0 !important;
-        border-bottom: 2.5px solid #f59e0b !important;
+        border: 1px solid #e9c46a !important;
+        border-top: 4px solid #9a3412 !important;
+        border-bottom: 2px solid #d4a017 !important;
         border-radius: 6px !important;
       }
       header .badge-top {
         display: inline-block !important;
-        background: #fef3c7 !important;
-        color: #78350f !important;
+        background: #fdf0c8 !important;
+        color: #7f1d1d !important;
+        border: 1px solid #d4a017 !important;
         font-size: 7pt !important;
         padding: 0 9px !important;
         margin: 0 0 2px 0 !important;
@@ -190,13 +193,12 @@
       }
       header h1 {
         font-size: 15pt !important; line-height: 1.2 !important;
-        color: #fff !important; margin: 0 !important; text-shadow: none !important;
+        color: #7f1d1d !important; margin: 0 !important; text-shadow: none !important;
       }
-      header p { font-size: 8.5pt !important; color: #ffedd5 !important; margin: 1px 0 0 0 !important; }
+      header p { font-size: 8.5pt !important; color: #92400e !important; margin: 1px 0 0 0 !important; }
 
       main { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
 
-      /* [30% हल्का विराम] सारांश कार्ड : हल्का पेस्टल टिंट + बोल्ड बाईं पट्टी */
       #summary {
         display: grid !important;
         grid-template-columns: repeat(4, 1fr) !important;
@@ -208,19 +210,18 @@
         padding: 3px 6px !important;
         box-shadow: none !important;
       }
-      #summary .card:nth-child(1) { background: #fffbeb !important; border: 1px solid #fde68a !important; border-left: 4.5px solid #b45309 !important; }
-      #summary .card:nth-child(2) { background: #ecfdf5 !important; border: 1px solid #a7f3d0 !important; border-left: 4.5px solid #047857 !important; }
-      #summary .card:nth-child(3) { background: #fef2f2 !important; border: 1px solid #fecaca !important; border-left: 4.5px solid #b91c1c !important; }
-      #summary .card:nth-child(4) { background: #eff6ff !important; border: 1px solid #bfdbfe !important; border-left: 4.5px solid #1d4ed8 !important; }
-      #summary .card .t { font-size: 7pt !important; color: #374151 !important; }
+      #summary .card:nth-child(1) { background: #fff8e6 !important; border: 1px solid #fde68a !important; border-left: 4px solid #b45309 !important; }
+      #summary .card:nth-child(2) { background: #effaf1 !important; border: 1px solid #a7f3d0 !important; border-left: 4px solid #166534 !important; }
+      #summary .card:nth-child(3) { background: #fdf0f0 !important; border: 1px solid #fecaca !important; border-left: 4px solid #9f1239 !important; }
+      #summary .card:nth-child(4) { background: #eef3fb !important; border: 1px solid #bfdbfe !important; border-left: 4px solid #1e3a8a !important; }
+      #summary .card .t { font-size: 7pt !important; color: #4b5563 !important; }
       #summary .card .v { font-size: 12pt !important; line-height: 1.15 !important; }
-      #summary .card:nth-child(1) .v { color: #92400e !important; }
-      #summary .card:nth-child(2) .v { color: #065f46 !important; }
-      #summary .card:nth-child(3) .v { color: #991b1b !important; }
-      #summary .card:nth-child(4) .v { color: #1e40af !important; }
+      #summary .card:nth-child(1) .v { color: #b45309 !important; }
+      #summary .card:nth-child(2) .v { color: #166534 !important; }
+      #summary .card:nth-child(3) .v { color: #9f1239 !important; }
+      #summary .card:nth-child(4) .v { color: #1e3a8a !important; }
       #summary .card .s { display: none !important; }
 
-      /* सेक्शन कंटेनर : साफ सफेद आधार */
       .tab-sec {
         display: block !important;
         background: #ffffff !important;
@@ -229,80 +230,80 @@
         padding: 4px 6px !important;
         margin: 0 0 5px 0 !important;
       }
-      #sec-don  { border: 1px solid #fdba74 !important; }
-      #sec-exp  { border: 1px solid #fca5a5 !important; }
-      #sec-prev { border: 1px solid #fcd34d !important; }
-      #sec-ink  { border: 1px solid #ddd6fe !important; }
+      #sec-don  { border: 1px solid #e9b97a !important; }
+      #sec-exp  { border: 1px solid #e8a8a8 !important; }
+      #sec-prev { border: 1px solid #e6c76a !important; }
+      #sec-ink  { border: 1px solid #b6c4e6 !important; }
 
-      /* [10% बोल्ड एंकर] सेक्शन शीर्षक पट्टी : गहरे संतृप्त रंग + सफेद टेक्स्ट */
       .sec-title {
         font-size: 9pt !important;
-        margin-bottom: 3.5px !important;
-        padding: 2.5px 7px !important;
+        margin-bottom: 4px !important;
+        padding: 2.5px 6px !important;
         border-radius: 4px !important;
-        color: #fff !important;
       }
-      .sec-title, .sec-title * { color: #fff !important; }
-      #sec-don  .sec-title { background: linear-gradient(90deg, #c2410c, #ea580c) !important; }
-      #sec-exp  .sec-title { background: linear-gradient(90deg, #991b1b, #dc2626) !important; }
-      #sec-prev .sec-title { background: linear-gradient(90deg, #92400e, #b45309) !important; }
-      #sec-ink  .sec-title { background: linear-gradient(90deg, #4c1d95, #6d28d9) !important; }
+      .sec-title span { color: #6b7280 !important; }
+      #sec-don  .sec-title { background: #fde7c8 !important; border-left: 4px solid #c2410c !important; color: #7c2d12 !important; }
+      #sec-don  .sec-title i { color: #c2410c !important; }
+      #sec-exp  .sec-title { background: #fbdada !important; border-left: 4px solid #9f1239 !important; color: #7f1d1d !important; }
+      #sec-exp  .sec-title i { color: #9f1239 !important; }
+      #sec-prev .sec-title { background: #fcefc0 !important; border-left: 4px solid #b45309 !important; color: #78350f !important; }
+      #sec-prev .sec-title i { color: #b45309 !important; }
+      #sec-ink  .sec-title { background: #e6ecf8 !important; border-left: 4px solid #1e3a8a !important; color: #1e3a8a !important; }
+      #sec-ink  .sec-title i { color: #1e3a8a !important; }
 
-      /* [30% हल्का स्तर] अवशेष के भीतर उप-शीर्षक */
       .sub-title { font-size: 7.5pt !important; padding: 2px 6px !important; margin: 5px 0 3px !important; border-radius: 4px !important; }
-      .sub-title.bg-amber-50 { background: #fef3c7 !important; border: 1px solid #fcd34d !important; border-left: 3.5px solid #b45309 !important; color: #78350f !important; }
-      .sub-title.bg-emerald-50 { background: #d1fae5 !important; border: 1px solid #6ee7b7 !important; border-left: 3.5px solid #047857 !important; color: #065f46 !important; }
+      .sub-title.bg-amber-50 { background: #fef9c3 !important; border: 1px solid #fde047 !important; border-left: 3px solid #ca8a04 !important; color: #854d0e !important; }
+      .sub-title.bg-emerald-50 { background: #dcfce7 !important; border: 1px solid #86efac !important; border-left: 3px solid #16a34a !important; color: #166534 !important; }
 
       /* चंदा सूची - 3 कॉलम */
       #don-list {
         column-count: 3;
         column-gap: 8px;
-        column-rule: 1px solid #fed7aa;
+        column-rule: 1px solid #e9b97a;
       }
       .row {
         grid-template-columns: 18px 1fr auto !important;
         gap: 3px !important;
-        padding: 1.35px 3px !important;
+        padding: 1.4px 3px !important;
         font-size: 7.4pt !important;
         line-height: 1.15 !important;
-        color: #111827 !important;
+        color: #1f2937 !important;
         break-inside: avoid;
         page-break-inside: avoid;
       }
       .row .no { font-size: 6.5pt !important; color: #6b7280 !important; }
-      .row .nm { font-weight: 600 !important; color: #111827 !important; }
-      .row .note { font-size: 6.3pt !important; color: #4b5563 !important; margin: 0 !important; }
+      .row .nm { font-weight: 600 !important; }
+      .row .note { font-size: 6.3pt !important; color: #6b7280 !important; margin: 0 !important; }
       .row.head { display: none !important; }
 
-      /* [60% हल्का डेटा क्षेत्र] न्यूनतम टिंट (3%) ताकि 7.4pt अक्षर क्रिस्टल क्लियर छपें */
       #don-list .row:nth-child(odd)  { background: #ffffff !important; }
-      #don-list .row:nth-child(even) { background: #fff9f2 !important; }
+      #don-list .row:nth-child(even) { background: #fff9ef !important; }
       #exp-list .row:nth-child(odd)  { background: #ffffff !important; }
-      #exp-list .row:nth-child(even) { background: #fff7f7 !important; }
+      #exp-list .row:nth-child(even) { background: #fff5f5 !important; }
       #prev-list .row:nth-child(odd), #next-list .row:nth-child(odd) { background: #ffffff !important; }
-      #prev-list .row:nth-child(even), #next-list .row:nth-child(even) { background: #fffcf2 !important; }
+      #prev-list .row:nth-child(even), #next-list .row:nth-child(even) { background: #fffdf5 !important; }
 
-      #don-list .row { border-bottom: 0.5px solid #fed7aa !important; }
-      #exp-list .row { border-bottom: 0.5px solid #fecaca !important; }
-      #prev-list .row, #next-list .row { border-bottom: 0.5px solid #fde68a !important; }
+      #don-list .row { border-bottom: 0.5px solid #f0d3a8 !important; }
+      #exp-list .row { border-bottom: 0.5px solid #f3c6c6 !important; }
+      #prev-list .row, #next-list .row { border-bottom: 0.5px solid #f2dd9a !important; }
 
-      #don-list .amt { color: #047857 !important; }
-      #exp-list .amt { color: #b91c1c !important; }
+      #don-list .amt { color: #166534 !important; }
+      #exp-list .amt { color: #9f1239 !important; }
 
-      /* [10% बोल्ड समापन एंकर] कुल योग की गहरी रंगीन पट्टियाँ */
       .row.total {
-        font-size: 8.5pt !important;
+        font-size: 8.4pt !important;
         padding: 2.5px 5px !important;
-        color: #fff !important;
-        border-top: none !important;
         border-radius: 4px !important;
         margin-top: 2px !important;
       }
-      .row.total .amt, .row.total div { color: #fff !important; }
-      #don-total .row.total  { background: #065f46 !important; }
-      #exp-total .row.total  { background: #991b1b !important; }
-      #prev-total .row.total { background: #92400e !important; }
-      #next-list .row.total  { background: #065f46 !important; }
+      #don-total .row.total  { background: #dcf2e1 !important; border-top: 1.5px solid #166534 !important; color: #14532d !important; }
+      #don-total .row.total .amt { color: #166534 !important; }
+      #exp-total .row.total  { background: #fbdada !important; border-top: 1.5px solid #9f1239 !important; color: #7f1d1d !important; }
+      #exp-total .row.total .amt { color: #9f1239 !important; }
+      #prev-total .row.total { background: #fef3c7 !important; border-top: 1.5px solid #b45309 !important; color: #78350f !important; }
+      #prev-total .row.total .amt { color: #b45309 !important; }
+      #next-list .row.total  { background: #dcf2e1 !important; border-top: 1.5px solid #166534 !important; color: #14532d !important; }
+      #next-list .row.total .amt { color: #166534 !important; }
 
       #page2 {
         break-before: page;
@@ -314,22 +315,20 @@
       }
       #page2 .tab-sec { margin-bottom: 5px !important; }
 
-      /* वस्तु / सेवा कार्ड : हल्का लैवेंडर टिंट + बोल्ड बैज */
       .ink-card {
         padding: 2.5px 5px !important;
         margin-bottom: 2.5px !important;
         font-size: 7pt !important;
         border-radius: 4px !important;
         break-inside: avoid;
-        background: #f8f5ff !important;
-        border: 1px solid #ddd6fe !important;
+        background: #f3f6fc !important;
+        border: 1px solid #c7d3ee !important;
       }
-      .ink-card .badge { width: 12px !important; height: 12px !important; font-size: 6pt !important; background: #5b21b6 !important; color: #fff !important; }
+      .ink-card .badge { width: 12px !important; height: 12px !important; font-size: 6pt !important; background: #1e3a8a !important; color: #fff !important; }
 
-      /* छपाई टिप्पणी : बोल्ड टील हेडर + हल्का मिंट बॉडी */
       #print-note {
-        background: #f0fdfa !important;
-        border: 1px solid #5eead4 !important;
+        background: #fffaf0 !important;
+        border: 1px solid #e9c46a !important;
         border-radius: 5px !important;
         padding: 4px 6px !important;
         margin: 0 0 5px 0 !important;
@@ -337,8 +336,9 @@
       }
       #print-note.is-empty { display: none !important; }
       #print-note .pn-title {
-        background: linear-gradient(90deg, #115e59, #0f766e) !important;
-        color: #fff !important;
+        background: #fdf0c8 !important;
+        border-left: 4px solid #b45309 !important;
+        color: #7f1d1d !important;
         font-weight: 800;
         font-size: 8.5pt;
         padding: 2px 6px;
@@ -348,7 +348,7 @@
       #print-note-text {
         font-size: 8pt;
         line-height: 1.35;
-        color: #134e4a !important;
+        color: #3f2a12 !important;
         white-space: pre-wrap;
         word-break: break-word;
       }
@@ -358,9 +358,25 @@
         color: #6b7280 !important;
         text-align: right;
         margin-top: 4px;
-        border-top: 1px solid #fdba74;
+        border-top: 1px solid #d4a017;
         padding-top: 2px;
       }
+
+      /* ---- लोगो वॉटरमार्क (position:fixed होने से हर पेज पर दोहराता है) ---- */
+      #wm {
+        position: fixed; inset: 0;
+        display: flex !important;
+        align-items: center; justify-content: center;
+        pointer-events: none; z-index: 9999;
+      }
+      #wm img { width: 125mm; height: auto; opacity: .07; filter: saturate(.8); }
+      #wm.no-logo { display: none !important; }
+
+      /* ---- साल हेडर में उसी लाइन पर ---- */
+      #printYearDisplay { display: inline !important; }
+
+      /* ---- चंदा सूची का फ़ॉन्ट अपने आप घटेगा (JS से --don-fs सेट होता है) ---- */
+      #don-list .row { font-size: var(--don-fs, 7.4pt) !important; padding: 1.1px 3px !important; }
     }
   </style>
 </head>
@@ -389,6 +405,9 @@
       <div class="mt-1">समस्त ग्रामवासियों एवं सहयोगियों का हार्दिक आभार 🙏</div>
     </div>
   </header>
+
+  <!-- कमेटी का लोगो (सिर्फ प्रिंट में, हल्के बैकग्राउंड में, दोनों पेज पर) -->
+  <div id="wm" class="print-only" aria-hidden="true"><img id="wmImg" alt=""></div>
 
   <main class="max-w-3xl mx-auto px-3 mt-3">
 
@@ -549,10 +568,15 @@
         return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
       });
     }
-    function fmt(n) { return "₹" + Number(n).toLocaleString("en-IN"); }
+    // ऋण राशि भी सही दिखेगी (जैसे −₹150)
+    function fmt(n) {
+      n = Number(n);
+      return (n < 0 ? "−" : "") + "₹" + Math.abs(n).toLocaleString("en-IN");
+    }
     function pad(n) { return (n < 10 ? "0" : "") + n; }
 
     // ---------- 1. घड़ी : 20 अक्टूबर 2026, रात 8:00 से बीता समय ----------
+    // अगले साल की तारीख यहीं बदलें
     var eventTimestamp = new Date("2026-10-20T20:00:00+05:30").getTime();
 
     function updateTimer() {
@@ -654,7 +678,6 @@
     var donSort = "order";
     var noteText = "";
 
-    // क्रम बटनों की सूची (मोड -> बटन की id)
     var sortButtons = {
       order: "sort-order",
       amt: "sort-amt",
@@ -707,13 +730,10 @@
       var shown = items.filter(function (x) { return !q || x.n.toLowerCase().indexOf(q) !== -1; });
 
       if (donSort === "amt") {
-        // ज्यादा राशि पहले
         shown.sort(function (a, b) { return (b.a - a.a) || (a.i - b.i); });
       } else if (donSort === "amtAsc") {
-        // कम राशि पहले
         shown.sort(function (a, b) { return (a.a - b.a) || (a.i - b.i); });
       } else if (donSort === "name") {
-        // नाम के अनुसार (हिंदी + अंग्रेजी वर्णमाला क्रम)
         shown.sort(function (a, b) {
           var c = String(a.n).localeCompare(String(b.n), ["hi", "en"], { sensitivity: "base", numeric: true });
           return c || (a.i - b.i);
@@ -888,74 +908,107 @@
     })();
 
     // ---------- 6. प्रिंट ----------
-    var savedQ = "", savedSort = "order";
-    function triggerPrint() { window.print(); }
+    var savedQ = "", savedSort = "order", printing = false;
 
-    window.addEventListener("beforeprint", function () {
+    function fitDonFont() {
+      // 3 कॉलम में प्रति कॉलम 46 पंक्तियों तक 7.4pt, उससे ज्यादा हों तो फ़ॉन्ट घटाओ
+      var n = (store[currentYear] || { don: [] }).don.length;
+      var perCol = Math.ceil(n / 3), fs = 7.4;
+      if (perCol > 46) fs = Math.max(5.2, 7.4 * 46 / perCol);
+      document.documentElement.style.setProperty("--don-fs", fs.toFixed(2) + "pt");
+    }
+
+    function preparePrint() {
+      if (printing) return;
+      printing = true;
       savedQ = searchQ; savedSort = donSort;
       searchQ = ""; donSort = "order";
       document.getElementById("printDate").textContent = new Date().toLocaleDateString("en-IN");
       applyNote();
+      fitDonFont();
       render();
-    });
-    window.addEventListener("afterprint", function () {
+    }
+
+    function restoreAfterPrint() {
+      if (!printing) return;
+      printing = false;
       searchQ = savedQ; donSort = savedSort;
       render();
-    });
+    }
+
+    function triggerPrint() { preparePrint(); window.print(); }
+
+    window.addEventListener("beforeprint", preparePrint);   // Ctrl+P वाले मामले के लिए
+    window.addEventListener("afterprint", restoreAfterPrint);
 
     // ---------- 7. Google Sheet ऑटो-सिंक ----------
     var SHEET_ID = "1gWtnX3JFPxNuIsEMuwxR9xWLRUjDWWHN88mBL7xaUTE";
+
+    // सेल की सुरक्षित वैल्यू (0 भी सही पढ़ी जाएगी)
+    function cv(x) {
+      if (!x) return "";
+      var v = (x.v !== null && x.v !== undefined) ? x.v : x.f;
+      return (v === null || v === undefined) ? "" : String(v).trim();
+    }
+    function num(x) {
+      var n = parseFloat(String(cv(x)).replace(/[^\d.-]/g, ""));
+      return isNaN(n) ? 0 : n;
+    }
 
     function markLive() {
       var b = document.getElementById("syncBadge");
       b.textContent = "● लाइव डेटा (Sheet)";
       b.className = "text-[11px] font-bold px-2 py-1 rounded-md bg-emerald-100 text-emerald-700";
     }
+    function markFail() {
+      var b = document.getElementById("syncBadge");
+      if (b.textContent.indexOf("लाइव") !== -1) return;   // कोई टैब चल चुका हो तो मत बदलो
+      b.textContent = "● शीट नहीं खुली - सहेजा डेटा";
+      b.className = "text-[11px] font-bold px-2 py-1 rounded-md bg-red-100 text-red-700";
+    }
 
     function loadTab(tabName, cb) {
       var sc = document.createElement("script");
-      var fn = "cb_" + Math.random().toString(36).substring(7);
-      window[fn] = function (json) {
-        try { if (json && json.table && json.table.rows) { cb(json.table.rows); markLive(); } } catch (e) {}
-        delete window[fn];
+      var fn = "cb_" + Math.random().toString(36).substring(2);
+      function cleanup() {
+        try { delete window[fn]; } catch (e) { window[fn] = undefined; }
         try { document.body.removeChild(sc); } catch (e) {}
+      }
+      window[fn] = function (json) {
+        try {
+          if (json && json.table && json.table.rows) { cb(json.table.rows); markLive(); }
+          else markFail();
+        } catch (e) { markFail(); }
+        cleanup();
       };
-      sc.src = "https://docs.google.com/spreadsheets/d/" + SHEET_ID + "/gviz/tq?tqx=responseHandler:" + fn + "&sheet=" + encodeURIComponent(tabName);
+      sc.onerror = function () { markFail(); cleanup(); };
+      sc.src = "https://docs.google.com/spreadsheets/d/" + SHEET_ID +
+               "/gviz/tq?tqx=responseHandler:" + fn + "&sheet=" + encodeURIComponent(tabName);
       document.body.appendChild(sc);
     }
 
     setTimeout(function () {
 
       // ---- पिछला अवशेष ----
-      // नियम: शीट के 'सत्र / मद' कॉलम में दर्ज वर्ष (जैसे 'दशहरा 2026', 'दशहरा 2027')
-      // सीधे उसी सत्र का आरंभिक अवशेष है (2026 या उसके बाद के सत्रों के लिए)।
+      // नियम: 'सत्र / मद' कॉलम में दर्ज वर्ष (जैसे 'दशहरा 2026') उसी सत्र का आरंभिक अवशेष है
       loadTab("पिछला_अवशेष", function (rows) {
         var fresh = {}, totals = {};
         for (var i = 0; i < rows.length; i++) {
           var c = rows[i].c;
           if (!c) continue;
-          var item = c[0] ? String(c[0].v || c[0].f).trim() : "";
-          var holder = c[1] ? String(c[1].v || c[1].f).trim() : "";
-          var amt = c[2] ? parseFloat(String(c[2].v).replace(/[^\d.-]/g, "")) : 0;
-          var note = c[3] ? String(c[3].v || c[3].f).trim() : "";
-          if (item === "कुल योग" || isNaN(amt) || amt <= 0) continue;
-
+          var item = cv(c[0]), holder = cv(c[1]), amt = num(c[2]), note = cv(c[3]);
+          if (item === "कुल योग" || amt <= 0) continue;
           var mt = item.match(/\d{4}/);
           if (!mt) continue;
           var yrNum = Number(mt[0]);
           if (yrNum < 2026) continue;
-
           var target = String(yrNum);
           if (!store[target]) continue;
-
           if (!fresh[target]) fresh[target] = [];
           fresh[target].push([item, holder, amt, note]);
           totals[target] = (totals[target] || 0) + amt;
         }
-        for (var key in fresh) {
-          store[key].prevList = fresh[key];
-          store[key].prev = totals[key];
-        }
+        for (var key in fresh) { store[key].prevList = fresh[key]; store[key].prev = totals[key]; }
         render();
       });
 
@@ -965,10 +1018,8 @@
         for (var i = 0; i < rows.length; i++) {
           var c = rows[i].c;
           if (!c) continue;
-          var yr = c[0] ? String(c[0].v || c[0].f).trim() : "";
-          var nm = c[2] ? String(c[2].v || c[2].f).trim() : "";
-          var am = c[3] ? parseInt(c[3].v, 10) : 0;
-          if (yr && nm && !isNaN(am) && Number(yr) >= 2026 && store[yr]) {
+          var yr = cv(c[0]), nm = cv(c[2]), am = num(c[3]);
+          if (yr && nm && Number(yr) >= 2026 && store[yr]) {
             if (!fresh[yr]) fresh[yr] = [];
             fresh[yr].push([nm, am]);
           }
@@ -983,10 +1034,8 @@
         for (var i = 0; i < rows.length; i++) {
           var c = rows[i].c;
           if (!c) continue;
-          var yr = c[0] ? String(c[0].v || c[0].f).trim() : "";
-          var it = c[2] ? String(c[2].v || c[2].f).trim() : "";
-          var cs = c[3] ? parseInt(c[3].v, 10) : 0;
-          if (yr && it && !isNaN(cs) && Number(yr) >= 2026 && store[yr]) {
+          var yr = cv(c[0]), it = cv(c[2]), cs = num(c[3]);
+          if (yr && it && Number(yr) >= 2026 && store[yr]) {
             if (!fresh[yr]) fresh[yr] = [];
             fresh[yr].push([it, cs]);
           }
@@ -1001,10 +1050,7 @@
         for (var i = 0; i < rows.length; i++) {
           var c = rows[i].c;
           if (!c) continue;
-          var yr = c[0] ? String(c[0].v || c[0].f).trim() : "";
-          var nm = c[2] ? String(c[2].v || c[2].f).trim() : "";
-          var t = c[3] ? String(c[3].v || c[3].f).trim() : "";
-          var dd = c[4] ? String(c[4].v || c[4].f).trim() : "";
+          var yr = cv(c[0]), nm = cv(c[2]), t = cv(c[3]), dd = cv(c[4]);
           var fd = dd ? (t + " - " + dd) : t;
           if (yr && nm && Number(yr) >= 2026 && store[yr]) {
             if (!fresh[yr]) fresh[yr] = [];
@@ -1016,6 +1062,15 @@
       });
 
     }, 400);
+
+    // ---------- 8. कमेटी का लोगो (वॉटरमार्क) ----------
+    // लोगो की फ़ाइल का नाम या "data:image/png;base64,...." यहाँ डालें
+    var LOGO_SRC = "logo.png";
+    (function () {
+      var img = document.getElementById("wmImg");
+      img.onerror = function () { document.getElementById("wm").classList.add("no-logo"); };
+      img.src = LOGO_SRC;
+    })();
   </script>
 </body>
 </html>
