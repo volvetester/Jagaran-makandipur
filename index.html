@@ -77,6 +77,23 @@
     }
     .pill-btn.on { background: #ea580c; color: #fff; border-color: #ea580c; }
 
+    /* ---------- क्रम (Sort) पट्टी : मोबाइल पर साइड स्क्रॉल ---------- */
+    .sort-bar {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      gap: 8px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 6px;
+      margin-bottom: 4px;
+      scrollbar-width: thin;
+    }
+    .sort-bar::-webkit-scrollbar { height: 4px; }
+    .sort-bar::-webkit-scrollbar-thumb { background: #fdba74; border-radius: 999px; }
+    .sort-bar > * { flex-shrink: 0; white-space: nowrap; }
+
     .ink-card {
       display: flex;
       gap: 10px;
@@ -116,9 +133,9 @@
     .print-only { display: none; }
 
     /* =========================================================
-       प्रिंट लेआउट - A4, ठीक 2 पेज
+       प्रिंट लेआउट - A4, ठीक 2 पेज (रंगीन)
        पेज 1 : शीर्षक + सारांश + चंदा सूची (3 कॉलम)
-       पेज 2 : खर्च (बायाँ) + अवशेष व वस्तु सहयोग (दायाँ) + हस्ताक्षर
+       पेज 2 : खर्च (बायाँ) + अवशेष व वस्तु सहयोग (दायाँ)
        ========================================================= */
     @page { size: A4 portrait; margin: 6mm; }
 
@@ -132,28 +149,39 @@
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
       }
+      * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
       .no-print, #bottom-nav, .timer-line { display: none !important; }
       .print-only { display: block !important; }
 
+      /* रंगीन शीर्षक पट्टी */
       header {
-        background: #fff !important;
-        color: #000 !important;
+        background: linear-gradient(90deg, #b45309 0%, #ea580c 50%, #dc2626 100%) !important;
+        color: #fff !important;
         box-shadow: none !important;
-        padding: 0 0 3px 0 !important;
-        margin: 0 0 4px 0 !important;
-        border-bottom: 2px solid #ea580c;
-        border-radius: 0 !important;
+        padding: 4px 6px 5px 6px !important;
+        margin: 0 0 5px 0 !important;
+        border-bottom: 3px solid #fbbf24;
+        border-radius: 6px !important;
       }
-      header .badge-top { display: none !important; }
+      header .badge-top {
+        display: inline-block !important;
+        background: #fbbf24 !important;
+        color: #7f1d1d !important;
+        font-size: 7pt !important;
+        padding: 0 8px !important;
+        margin: 0 0 2px 0 !important;
+        border-radius: 999px !important;
+        box-shadow: none !important;
+      }
       header h1 {
         font-size: 15pt !important; line-height: 1.2 !important;
-        color: #9a3412 !important; margin: 0 !important; text-shadow: none !important;
+        color: #fff !important; margin: 0 !important; text-shadow: none !important;
       }
-      header p { font-size: 8.5pt !important; color: #333 !important; margin: 0 !important; }
+      header p { font-size: 8.5pt !important; color: #ffedd5 !important; margin: 0 !important; }
 
       main { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
 
-      /* सारांश */
+      /* सारांश - हर कार्ड अलग रंग */
       #summary {
         display: grid !important;
         grid-template-columns: repeat(4, 1fr) !important;
@@ -161,12 +189,14 @@
         margin: 0 0 5px 0 !important;
       }
       #summary .card {
-        border: 1.5px solid #94a3b8 !important;
-        border-radius: 4px !important;
+        border-radius: 5px !important;
         padding: 2px 5px !important;
         box-shadow: none !important;
-        background: #fff !important;
       }
+      #summary .card:nth-child(1) { background: #fef3c7 !important; border: 1.5px solid #f59e0b !important; border-left: 5px solid #d97706 !important; }
+      #summary .card:nth-child(2) { background: #d1fae5 !important; border: 1.5px solid #10b981 !important; border-left: 5px solid #059669 !important; }
+      #summary .card:nth-child(3) { background: #fee2e2 !important; border: 1.5px solid #ef4444 !important; border-left: 5px solid #dc2626 !important; }
+      #summary .card:nth-child(4) { background: #dbeafe !important; border: 1.5px solid #3b82f6 !important; border-left: 5px solid #1d4ed8 !important; }
       #summary .card .t { font-size: 7pt !important; }
       #summary .card .v { font-size: 12pt !important; line-height: 1.15 !important; }
       #summary .card .s { display: none !important; }
@@ -174,20 +204,38 @@
       .tab-sec {
         display: block !important;
         box-shadow: none !important;
-        border: 1px solid #cbd5e1 !important;
-        border-radius: 4px !important;
+        border-radius: 5px !important;
         padding: 4px 6px !important;
         margin: 0 0 5px 0 !important;
-        background: #fff !important;
       }
-      .sec-title { font-size: 9pt !important; margin-bottom: 3px !important; }
-      .sub-title { font-size: 7.5pt !important; padding: 2px 5px !important; margin: 5px 0 3px !important; }
+      #sec-don  { background: #fffaf0 !important; border: 1.5px solid #fb923c !important; }
+      #sec-exp  { background: #fff7f7 !important; border: 1.5px solid #f87171 !important; }
+      #sec-prev { background: #fffdf2 !important; border: 1.5px solid #f59e0b !important; }
+      #sec-ink  { background: #faf5ff !important; border: 1.5px solid #a78bfa !important; }
+
+      /* रंगीन सेक्शन शीर्षक पट्टी */
+      .sec-title {
+        font-size: 9pt !important;
+        margin-bottom: 3px !important;
+        padding: 2px 6px !important;
+        border-radius: 4px !important;
+        color: #fff !important;
+      }
+      .sec-title, .sec-title * { color: #fff !important; }
+      #sec-don  .sec-title { background: linear-gradient(90deg, #ea580c, #f59e0b) !important; }
+      #sec-exp  .sec-title { background: linear-gradient(90deg, #dc2626, #f43f5e) !important; }
+      #sec-prev .sec-title { background: linear-gradient(90deg, #d97706, #eab308) !important; }
+      #sec-ink  .sec-title { background: linear-gradient(90deg, #7c3aed, #c026d3) !important; }
+
+      .sub-title { font-size: 7.5pt !important; padding: 2px 5px !important; margin: 5px 0 3px !important; border-radius: 4px !important; }
+      .sub-title.bg-amber-50 { background: #fcd34d !important; border-color: #d97706 !important; }
+      .sub-title.bg-emerald-50 { background: #6ee7b7 !important; border-color: #059669 !important; }
 
       /* चंदा सूची - 3 कॉलम */
       #don-list {
         column-count: 3;
         column-gap: 8px;
-        column-rule: 1px solid #e2e8f0;
+        column-rule: 1px solid #fdba74;
       }
       .row {
         grid-template-columns: 18px 1fr auto !important;
@@ -199,12 +247,39 @@
         break-inside: avoid;
         page-break-inside: avoid;
       }
-      .row:nth-child(even) { background: #fff !important; }
-      .row .no { font-size: 6.5pt !important; }
+      .row .no { font-size: 6.5pt !important; color: #6b7280 !important; }
       .row .nm { font-weight: 600 !important; }
       .row .note { font-size: 6.3pt !important; margin: 0 !important; }
-      .row.total { font-size: 8.5pt !important; padding: 2px 3px !important; background: #ffedd5 !important; }
       .row.head { display: none !important; }
+
+      /* पंक्तियों की धारियाँ (हर सेक्शन का अपना रंग) */
+      #don-list .row:nth-child(odd)  { background: #ffffff !important; }
+      #don-list .row:nth-child(even) { background: #ffedd5 !important; }
+      #exp-list .row:nth-child(odd)  { background: #ffffff !important; }
+      #exp-list .row:nth-child(even) { background: #fee2e2 !important; }
+      #prev-list .row:nth-child(odd), #next-list .row:nth-child(odd) { background: #ffffff !important; }
+      #prev-list .row:nth-child(even), #next-list .row:nth-child(even) { background: #fef3c7 !important; }
+
+      #don-list .row { border-bottom: 0.5px solid #fdba74 !important; }
+      #exp-list .row { border-bottom: 0.5px solid #fca5a5 !important; }
+      #prev-list .row, #next-list .row { border-bottom: 0.5px solid #fcd34d !important; }
+
+      #don-list .amt { color: #047857 !important; }
+      #exp-list .amt { color: #b91c1c !important; }
+
+      /* कुल योग की रंगीन पट्टियाँ */
+      .row.total {
+        font-size: 8.5pt !important;
+        padding: 2px 4px !important;
+        color: #fff !important;
+        border-top: none !important;
+        border-radius: 3px !important;
+      }
+      .row.total .amt, .row.total div { color: #fff !important; }
+      #don-total .row.total  { background: #059669 !important; }
+      #exp-total .row.total  { background: #dc2626 !important; }
+      #prev-total .row.total { background: #d97706 !important; }
+      #next-list .row.total  { background: #059669 !important; }
 
       #page2 {
         break-before: page;
@@ -216,10 +291,26 @@
       }
       #page2 .tab-sec { margin-bottom: 5px !important; }
 
-      .ink-card { padding: 2px 4px !important; margin-bottom: 2px !important; font-size: 7pt !important; border-radius: 3px !important; break-inside: avoid; }
-      .ink-card .badge { width: 12px !important; height: 12px !important; font-size: 6pt !important; }
+      /* वस्तु / सेवा कार्ड */
+      .ink-card {
+        padding: 2px 4px !important;
+        margin-bottom: 2px !important;
+        font-size: 7pt !important;
+        border-radius: 3px !important;
+        break-inside: avoid;
+        background: #ede9fe !important;
+        border: 1px solid #c4b5fd !important;
+      }
+      .ink-card .badge { width: 12px !important; height: 12px !important; font-size: 6pt !important; background: #7c3aed !important; color: #fff !important; }
 
-      .print-foot { font-size: 6.5pt; color: #555; text-align: right; margin-top: 4px; }
+      .print-foot {
+        font-size: 6.5pt;
+        color: #9a3412 !important;
+        text-align: right;
+        margin-top: 4px;
+        border-top: 1.5px solid #fb923c;
+        padding-top: 2px;
+      }
     }
   </style>
 </head>
@@ -310,10 +401,12 @@
           <input type="search" id="searchInput" oninput="onSearch(this.value)" placeholder="नाम से खोजें..."
                  class="w-full pl-10 pr-3 py-2.5 bg-gray-50 border-2 border-gray-200 rounded-xl text-base focus:bg-white focus:border-orange-400 outline-none" />
         </div>
-        <div class="flex items-center gap-2 mb-2">
+        <div class="sort-bar">
           <span class="text-xs font-bold text-gray-500">क्रम:</span>
           <button id="sort-order" class="pill-btn on" onclick="setSort('order')">लिखे क्रम से</button>
           <button id="sort-amt" class="pill-btn" onclick="setSort('amt')">ज्यादा राशि पहले</button>
+          <button id="sort-amt-asc" class="pill-btn" onclick="setSort('amtAsc')">कम राशि पहले</button>
+          <button id="sort-name" class="pill-btn" onclick="setSort('name')">नाम के अनुसार</button>
         </div>
         <div id="don-info" class="text-xs text-gray-500 mb-1"></div>
       </div>
@@ -492,6 +585,14 @@
     var searchQ = "";
     var donSort = "order";
 
+    // क्रम बटनों की सूची (मोड -> बटन की id)
+    var sortButtons = {
+      order: "sort-order",
+      amt: "sort-amt",
+      amtAsc: "sort-amt-asc",
+      name: "sort-name"
+    };
+
     // सत्र की ड्रॉपडाउन बनाना
     (function () {
       var sel = document.getElementById("yearSelector");
@@ -535,7 +636,20 @@
       var items = [];
       for (var i = 0; i < d.don.length; i++) items.push({ n: d.don[i][0], a: Number(d.don[i][1]), i: i });
       var shown = items.filter(function (x) { return !q || x.n.toLowerCase().indexOf(q) !== -1; });
-      if (donSort === "amt") shown.sort(function (a, b) { return (b.a - a.a) || (a.i - b.i); });
+
+      if (donSort === "amt") {
+        // ज्यादा राशि पहले
+        shown.sort(function (a, b) { return (b.a - a.a) || (a.i - b.i); });
+      } else if (donSort === "amtAsc") {
+        // कम राशि पहले
+        shown.sort(function (a, b) { return (a.a - b.a) || (a.i - b.i); });
+      } else if (donSort === "name") {
+        // नाम के अनुसार (हिंदी + अंग्रेजी वर्णमाला क्रम)
+        shown.sort(function (a, b) {
+          var c = String(a.n).localeCompare(String(b.n), ["hi", "en"], { sensitivity: "base", numeric: true });
+          return c || (a.i - b.i);
+        });
+      }
 
       var donList = document.getElementById("don-list");
       var html = "";
@@ -641,8 +755,10 @@
 
     function setSort(mode) {
       donSort = mode;
-      document.getElementById("sort-order").classList.toggle("on", mode === "order");
-      document.getElementById("sort-amt").classList.toggle("on", mode === "amt");
+      for (var key in sortButtons) {
+        var btn = document.getElementById(sortButtons[key]);
+        if (btn) btn.classList.toggle("on", key === mode);
+      }
       render();
     }
 
